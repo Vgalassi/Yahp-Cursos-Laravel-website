@@ -24,8 +24,9 @@ class UserController extends Controller
         return view('home');
     }
 
-    public function view()
+    public function show($id)
     {
+        user::findOrFail($id);
         $user = Auth::user();
         return view('users.show',['user' => $user]);
     }

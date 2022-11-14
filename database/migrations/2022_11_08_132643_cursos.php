@@ -16,11 +16,11 @@ return new class extends Migration
         Schema::create('cursos', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('descricomp');
+            $table->text('descricomp');
             $table->string('descrisimp');
             $table->integer('minalu');
             $table->integer('maxalu');
-            $table->string('status');
+            $table->integer('status');
             $table->timestamps();
         });
     }

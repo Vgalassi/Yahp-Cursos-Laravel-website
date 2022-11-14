@@ -45,7 +45,11 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto ">
+                        
                         <!-- Authentication Links -->
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="/cursos">Cursos</a>
+                        </li>
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
@@ -65,7 +69,7 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="/home/{{ Auth::user()->name }}">
+                                    <a class="dropdown-item" href="/home/{{ Auth::user()->id}}">
                                         Meu perfil
                                     </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
