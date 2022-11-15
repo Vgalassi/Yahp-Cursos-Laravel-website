@@ -20,4 +20,15 @@
         </div>
     </div>
 </div>
+
+@if(count($cursospart) == 0)
+    <p>Você ainda não se maticulou em algum curso</p>
+@else
+    <p>Cursos ({{count($cursospart)}}):</p>
+    @foreach ($cursospart as $cursosingle)
+        <p>{{ $cursosingle->name }}</p> 
+        <a href="">Desmatricular-se</a>
+    @endforeach
+
+@endif
 @endsection
