@@ -9,8 +9,18 @@ class CursoController extends Controller
 {
     public function index(){
 
+
+        $search = request('search');
+
+        if($search){
+            $cursos = Curso::where([
+                ['name','like','%'.$search.'%']
+            ])->get();
+
+        }else{
         $cursos = Curso::all();
-        return view('cursos.index',['cursos' => $cursos]);
+        }
+        return view('cursos.index',['cursos' => $cursos,'search' => $search]);
     }
 
     public function show($id){
