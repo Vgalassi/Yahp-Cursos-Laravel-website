@@ -3,9 +3,20 @@
 
 @section('content')
 
-@if (count($cursos) == 0)
+<form action="/cursos" method="GET">
+    <input type="text" id="search" name="search" class="form-control" placeholder="Procure um curso">
+</form>
+
+@if ($search)
+    <p>Exibindo resultados de: {{ $search}} </p>
+@endif
+
+@if (count($cursos) == 0 && $search)
+    <p>Nenhum curso encontrado</p>
+    @elseif (count($cursos) == 0)
     <p>Não tem curso</p>
 @endif
+
 
 @foreach ($cursos as $curso)
     <p>
