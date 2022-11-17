@@ -29,3 +29,4 @@ Route::put('/home/update/{id}', [App\Http\Controllers\UserController::class, 'up
 Route::get('/cursos',[App\Http\Controllers\CursoController::class, 'index']);
 Route::get('/cursos/{id}',[App\Http\Controllers\CursoController::class, 'show']);
 Route::get('/cursos/join/{id}',[App\Http\Controllers\CursoController::class, 'join'])->middleware('auth');
+Route::delete('/cursos/leave/{id}',[App\Http\Controllers\CursoController::class, 'leave'])->middleware('auth');

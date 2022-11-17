@@ -26,8 +26,16 @@
 @else
     <p>Cursos ({{count($cursospart)}}):</p>
     @foreach ($cursospart as $cursosingle)
-        <p>{{ $cursosingle->name }}</p> 
-        <a href="">Desmatricular-se</a>
+
+        <p>{{ $cursosingle->name }}
+            <form action="/cursos/leave/{{ $cursosingle->id }}" method="POST">
+            @csrf
+            @method('DELETE')
+            <button type="submit">
+                Desmatricular-se
+            </button>
+            </form> 
+        </p>
     @endforeach
 
 @endif
