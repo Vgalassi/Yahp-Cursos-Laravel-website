@@ -8,5 +8,5 @@
 <p>Endereço: {{ $user->endereco }}</p>
 <p>Filme: {{ $user->filme }}</p>
 
-<button> Editar perfil</button>
+<a href="/home/edit/{{ $user->id}}">Editar</a>
 @endsection

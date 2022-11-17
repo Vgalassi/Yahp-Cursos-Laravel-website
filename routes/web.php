@@ -22,6 +22,11 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\UserController::class, 'index']);
 Route::get('/home/{id}', [App\Http\Controllers\UserController::class, 'show']);
+Route::get('/home/edit/{id}', [App\Http\Controllers\UserController::class, 'edit']);
+Route::put('/home/update/{id}', [App\Http\Controllers\UserController::class, 'update']);
+
 
 Route::get('/cursos',[App\Http\Controllers\CursoController::class, 'index']);
 Route::get('/cursos/{id}',[App\Http\Controllers\CursoController::class, 'show']);
+Route::get('/cursos/join/{id}',[App\Http\Controllers\CursoController::class, 'join'])->middleware('auth');
+Route::delete('/cursos/leave/{id}',[App\Http\Controllers\CursoController::class, 'leave'])->middleware('auth');

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Curso;
+use Illuminate\Support\Facades\Auth;
+
 
 class CursoController extends Controller
 {
@@ -25,6 +27,44 @@ class CursoController extends Controller
 
     public function show($id){
         $curso = curso::findOrfail($id);
-        return view('cursos.show',['curso' => $curso]);
+        $user = Auth::user();
+        $usuarioentrou = false;
+
+        if($user){
+            $cursosusuario = $user->cursos->toArray();
+            foreach ($cursosusuario as $cursousuario){
+                if($cursousuario['id'] == $id){
+                    $usuarioentrou = true;
+                } 
+            }
+        }
+        
+        return view('cursos.show',['curso' => $curso,'usuarioentrou' => $usuarioentrou]);
+    }
+
+
+    public function join($id){
+        $user = Auth::user();
+
+        $cursosusuario = $user->cursos->toArray();
+        foreach ($cursosusuario as $cursousuario){
+            if($cursousuario['id'] == $id){
+                return redirect ('/cursos');
+            } 
+        }
+        $user->cursos()->attach($id);
+
+        $curso = curso::findOrfail($id);
+
+        return redirect ('/home')->with('msg','Matriculado com sucesso em' . $curso->name);
+    }
+
+    public function leave($id){
+        $user = Auth::user();
+
+        $user->cursos()->detach($id);
+        $curso = curso::findOrfail($id);
+
+        return redirect ('/home')->with('msg','Você se desmatriculou de:' . $curso->name);
     }
 }

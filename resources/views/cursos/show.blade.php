@@ -8,5 +8,18 @@
 <p>Mínimo de Alunos: {{ $curso->maxalu }}</p>
 <p>Máximos de Alunos: {{ $curso->minalu }}</p>
 
-<button> Se matricular no curso</button>
+@if (!$usuarioentrou)
+<form action="/cursos/join/{{ $curso->id }}" method="POST">
+    @csrf
+    <a href="/cursos/join/{{ $curso->id }}"
+        id="curso-submit" 
+        onclick="curso.preventDefault();
+        this.closest('form').submit();">
+        Se matricular no curso
+        </a>
+</form>
+@else
+<p>Você já está no curso</p>
+
+@endif
 @endsection
