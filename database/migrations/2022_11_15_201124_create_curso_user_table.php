@@ -13,14 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('cursos', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->text('descricomp');
-            $table->string('descrisimp');
-            $table->integer('minalu');
-            $table->integer('maxalu');
-            $table->integer('status');
+        Schema::create('curso_user', function (Blueprint $table) {
+            $table->foreignId('curso_id')->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });
     }
@@ -32,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('curso_user');
     }
 };

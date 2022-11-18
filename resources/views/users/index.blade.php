@@ -20,4 +20,23 @@
         </div>
     </div>
 </div>
+
+@if(count($cursospart) == 0)
+    <p>Você ainda não se maticulou em algum curso</p>
+@else
+    <p>Cursos ({{count($cursospart)}}):</p>
+    @foreach ($cursospart as $cursosingle)
+
+        <p>{{ $cursosingle->name }}
+            <form action="/cursos/leave/{{ $cursosingle->id }}" method="POST">
+            @csrf
+            @method('DELETE')
+            <button type="submit">
+                Desmatricular-se
+            </button>
+            </form> 
+        </p>
+    @endforeach
+
+@endif
 @endsection
