@@ -8,5 +8,6 @@
 <p>Endereço: {{ $user->endereco }}</p>
 <p>Filme: {{ $user->filme }}</p>
 
-<a href="/home/edit/{{ $user->id}}">Editar</a>
+<a href="/home/edit/{{ $user->id}}">Editar Dados</a>
+<a href="/home/edit/password/{{ $user->id}}">Mudar senha</a>
 @endsection

@@ -1,0 +1,39 @@
+body{
+    font-family: 'Roboto', sans-serif;
+}
+
+
+.border{
+    border-style: solid;
+    border-color:darkgrey;
+    border-top: 15px;
+    border-bottom: 15px;   
+}
+
+.hide{
+    display: none;
+}
+
+.title{
+    font-family: 'Secular One', sans-serif;
+    color:#3a414e; 
+}
+
+.navbartext{
+    font-family: 'Alexandria', sans-serif;
+}
+
+.hide{
+    display: none;
+}
+
+.displayimage{
+    width: 120px;
+    height: 120px;
+}
+
+.profilepick{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
