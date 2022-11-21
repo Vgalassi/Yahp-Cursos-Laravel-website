@@ -41,6 +41,10 @@ Gerar a key do projeto Laravel
 ```sh
 php artisan key:generate
 ```
+Inicializar a database
+```
+php artisan migrate
+```
 
 
 Acesse o projeto
