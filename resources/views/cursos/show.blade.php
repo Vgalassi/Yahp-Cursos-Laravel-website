@@ -2,6 +2,7 @@
 
 @section('content')
 
+<img style="width:150px; height:150px;" src="{{ $curso->imagem }}" alt="cursoimage">
 <p>Nome: {{ $curso->name }}</p>
 <p>Descrição Simples: {{ $curso->descrisimp }}</p>
 <p>Descrição Completa:{{ $curso->descricomp }}</p>

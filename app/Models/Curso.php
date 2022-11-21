@@ -9,6 +9,8 @@ class Curso extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['status'];
+
 
     public function users(){
         return $this->belongsTomany('App\Models\User');

@@ -7,10 +7,10 @@ use App\Models\Curso;
 use Illuminate\Support\Facades\Auth;
 
 
+
 class CursoController extends Controller
 {
     public function index(){
-
 
         $search = request('search');
 
@@ -24,6 +24,7 @@ class CursoController extends Controller
         }
         return view('cursos.index',['cursos' => $cursos,'search' => $search]);
     }
+
 
     public function show($id){
         $curso = curso::findOrfail($id);
@@ -56,7 +57,7 @@ class CursoController extends Controller
 
         $curso = curso::findOrfail($id);
 
-        return redirect ('/home')->with('msg','Matriculado com sucesso em' . $curso->name);
+        return redirect ('/home')->with('status','Matriculado com sucesso em: ' . $curso->name);
     }
 
     public function leave($id){
@@ -65,6 +66,6 @@ class CursoController extends Controller
         $user->cursos()->detach($id);
         $curso = curso::findOrfail($id);
 
-        return redirect ('/home')->with('msg','Você se desmatriculou de:' . $curso->name);
+        return redirect ('/home')->with('status','Você se desmatriculou de: ' . $curso->name);
     }
 }

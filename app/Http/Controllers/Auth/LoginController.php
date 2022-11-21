@@ -28,6 +28,13 @@ class LoginController extends Controller
      */
     protected $redirectTo = RouteServiceProvider::HOME;
 
+    protected function redirecTto(){
+        if(auth()->user()->perm == 1)
+        return ('/');
+        elseif(auth()->user()->perm == 2 )
+        return ('/admin');
+    }
+
     /**
      * Create a new controller instance.
      *
@@ -37,4 +44,8 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+    public function username()
+{
+    return 'username';
+}
 }
