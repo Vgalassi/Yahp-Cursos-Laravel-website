@@ -10,22 +10,20 @@
 <table class="table">
   <thead>
     <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
+      <th scope="col">Código</th>
+      <th scope="col">Nome</th>
+      <th scope="col">Deletar</th>
+      <th scope="col">Editar</th>
     </tr>
   </thead>
   <tbody>
   @foreach ($cursos as $curso)
 </p><tr>
       <th scope="row">1</th>
-      <td><p>{{ $curso->name }}
-      <div class="mx-auto" style="width: 200px;">
-    <button type="button" class="btn btn-danger">Remover</button>
-    <button type="button" class="btn btn-success">Editar</button>
-</div>
-    </td>
+      <td><p>{{ $curso->name }}</td>
+       <td> <button type="button" class="btn btn-danger">Remover</button></td>
+      <td><button type="button" class="btn btn-success">Editar</button></td>
+    
       
     </tr>
 @endforeach
