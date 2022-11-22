@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('endereco');
             $table->string('filme');
             $table->string('imagem')->nullable();
-            $table->integer('perm')->nullable();
+            $table->integer('perm');
             $table->rememberToken();
             $table->timestamps();
         });

@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('curso_user', function (Blueprint $table) {
             $table->foreignId('curso_id')->constrained();
             $table->foreignId('user_id')->constrained();
+            $table->integer('nota');
             $table->timestamps();
         });
     }

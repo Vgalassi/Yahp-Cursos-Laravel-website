@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('imagem');
             $table->integer('status')->nullable;
             $table->timestamps();
+            
         });
     }
 
