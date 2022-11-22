@@ -28,6 +28,7 @@ Route::post('/admin/create/createcurso', [App\Http\Controllers\AdminController::
 
 Route::get('/professor', [App\Http\Controllers\ProfController::class, 'index']);
 Route::get('/professor/edit/{id}', [App\Http\Controllers\ProfController::class, 'edit']);
+Route::put('/professor/update/{id}', [App\Http\Controllers\UserController::class, 'update']);
 
 Route::get('/home', [App\Http\Controllers\UserController::class, 'index']);
 Route::get('/home/{id}', [App\Http\Controllers\UserController::class, 'show']);

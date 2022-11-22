@@ -58,10 +58,11 @@ class UserController extends Controller
     public function update(Request $request)
     {
         $admin = Auth::user();
-        if($admin->perm != 0){
-            return redirect('/');
-        }
         user::findOrFail($request->id)->update($request->all());
+
+        if($admin->perm == 1){
+            return redirect ('/professor');
+        }
 
         return redirect('/home')->with("status",'Dados alterados com sucesso');
 
