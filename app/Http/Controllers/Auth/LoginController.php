@@ -30,7 +30,7 @@ class LoginController extends Controller
 
     protected function redirecTto(){
         if(auth()->user()->perm == 1)
-        return ('/');
+        return ('/professor');
         elseif(auth()->user()->perm == 2 )
         return ('/admin');
     }

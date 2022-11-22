@@ -46,7 +46,9 @@ class CursoController extends Controller
 
     public function join($id){
         $user = Auth::user();
-
+        if($user->perm != 0){
+            return reditect ('/cursos');
+        }
         $cursosusuario = $user->cursos->toArray();
         foreach ($cursosusuario as $cursousuario){
             if($cursousuario['id'] == $id){
@@ -61,6 +63,9 @@ class CursoController extends Controller
     }
 
     public function leave($id){
+        if($user->perm != 0){
+            return reditect ('/cursos');
+        }
         $user = Auth::user();
 
         $user->cursos()->detach($id);

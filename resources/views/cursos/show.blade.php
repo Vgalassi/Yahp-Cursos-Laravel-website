@@ -9,6 +9,7 @@
 <p>Mínimo de Alunos: {{ $curso->maxalu }}</p>
 <p>Máximos de Alunos: {{ $curso->minalu }}</p>
 
+@if(Auth::user->perm == 0)
 @if (!$usuarioentrou)
 <form action="/cursos/join/{{ $curso->id }}" method="POST">
     @csrf

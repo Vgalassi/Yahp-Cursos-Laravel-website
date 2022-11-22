@@ -502,7 +502,7 @@
         document.getElementById("wisetree").style.display = "none";
         document.getElementById("atumalaca").style.display = "none";
         document.getElementById("messi").style.display = "block";
-        document.getElementById("profimagem").value = "/images/profavatar/messicareca.png";
+        document.getElementById("profimagem").value = "/images/profavatar/messicareca.jpg";
         texto = "Messi";
         document.getElementById("texto").innerHTML = texto;
     }

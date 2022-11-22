@@ -3,8 +3,9 @@
 @section('content')
 
 <p>Página do admin</p>
-<button type="button" class="btn btn-primary" href="/admin/create">Adicionar dados</button>
-
+<form action="/admin/create">
+<button type="submit" class="btn btn-primary" href="/admin/create">Adicionar dados</button>
+</form>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">

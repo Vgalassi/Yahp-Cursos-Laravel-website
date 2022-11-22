@@ -26,6 +26,9 @@ Route::post('/admin/create/createalu', [App\Http\Controllers\AdminController::cl
 Route::post('/admin/create/createprof', [App\Http\Controllers\AdminController::class, 'create_prof']);
 Route::post('/admin/create/createcurso', [App\Http\Controllers\AdminController::class, 'create_curso']);
 
+Route::get('/professor', [App\Http\Controllers\ProfController::class, 'index']);
+Route::get('/professor/edit/{id}', [App\Http\Controllers\ProfController::class, 'edit']);
+
 Route::get('/home', [App\Http\Controllers\UserController::class, 'index']);
 Route::get('/home/{id}', [App\Http\Controllers\UserController::class, 'show']);
 Route::get('/home/edit/{id}', [App\Http\Controllers\UserController::class, 'edit']);

@@ -35,7 +35,7 @@ class UserController extends Controller
     public function show($id)
     {
         $admin = Auth::user();
-        if($admin->perm != 0){
+        if($admin->perm != 0 && $admin->perm != 1){
             return redirect('/');
         }
         user::findOrFail($id);
