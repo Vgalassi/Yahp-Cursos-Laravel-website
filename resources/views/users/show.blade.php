@@ -13,9 +13,10 @@
 @if ($user->perm == 0)
 <p>Filme: {{ $user->filme }}</p>
 <a href="/home/edit/{{ $user->id}}">Editar Dados</a>
+<a href="/home/edit/password/{{ $user->id}}">Mudar senha</a>
 @else
 <a href="/professor/edit/{{ $user->id }}">Editar Dados</a>
+<a href="/professor/edit/password/{{ $user->id}}">Mudar senha</a>
 @endif 
-<a href="/home/edit/password/{{ $user->id}}">Mudar senha</a>
 
 @endsection

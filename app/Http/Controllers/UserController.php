@@ -58,6 +58,9 @@ class UserController extends Controller
     public function update(Request $request)
     {
         $admin = Auth::user();
+        if($admin->perm != 0 && $admin->perm != 1){
+            return redirect('/');
+        }
         user::findOrFail($request->id)->update($request->all());
 
         if($admin->perm == 1){
@@ -71,7 +74,7 @@ class UserController extends Controller
     public function editpassword($id)
     {
         $admin = Auth::user();
-        if($admin->perm != 0){
+        if($admin->perm != 0 && $admin->perm != 1 && $admin->perm !=2){
             return redirect('/');
         }
         user::findOrFail($id);
@@ -83,7 +86,7 @@ class UserController extends Controller
     public function updatepassword(Request $request)
     {
         $admin = Auth::user();
-        if($admin->perm != 0){
+        if($admin->perm != 0 && $admin->perm != 1 && $admin->perm !=2){
             return redirect('/');
         }
         $request->validate([
@@ -98,6 +101,6 @@ class UserController extends Controller
             'password' => Hash::make($request->password)
         ]);
 
-        return redirect('/home')->with("status",'Senha alterada com sucesso');
+        return redirect('/professor')->with("status",'Senha alterada com sucesso');
     }
 }
