@@ -1,16 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
-<p style="font-size:35px;" class="ms-5">Página do admin</p>
+<div style="text-align: center;" class="container">
+  <h1>Página do admin</h1>
+  <div class="btn-group mt-3">
 <form action="/admin/create">
-
-<button type="submit" class="btn btn-primary ms-5" ">Adicionar dados</button>
+    <button type="submit" class="btn btn-primary ms-5">Adicionar dados</button>
 </form>
-
 <form action="/admin/linkprof">
-    <button type="submit" class="btn btn-primary ms-5" >Relacionar professor-matéria</button>
-
+    <button type="submit" class="btn btn-primary ms-5">Relacionar professor-matéria</button>
 </form>
+</div>
+</div>
 
 <table class="table container mt-3 table-hover">
   <thead class="table-success">
