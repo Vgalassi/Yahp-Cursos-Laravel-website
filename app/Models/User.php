@@ -52,5 +52,9 @@ class User extends Authenticatable
         return $this->belongsTomany('App\Models\Curso');
     }
 
+    public function curso(){
+        return $this->hasMany('App\Models\Curso');
+    }
+
     
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Curso;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -39,8 +40,9 @@ class CursoController extends Controller
                 } 
             }
         }
+        $professor = User::where('id', $curso->user_id)->first()->toArray();
         
-        return view('cursos.show',['curso' => $curso,'usuarioentrou' => $usuarioentrou]);
+        return view('cursos.show',['curso' => $curso,'usuarioentrou' => $usuarioentrou,'user' => $user,'professor'=>$professor]);
     }
 
 
@@ -58,6 +60,7 @@ class CursoController extends Controller
         $user->cursos()->attach($id);
 
         $curso = curso::findOrfail($id);
+        
 
         return redirect ('/home')->with('status','Matriculado com sucesso em: ' . $curso->name);
     }

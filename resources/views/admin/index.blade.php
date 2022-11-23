@@ -4,7 +4,11 @@
 
 <p>Página do admin</p>
 <form action="/admin/create">
-<button type="submit" class="btn btn-primary" href="/admin/create">Adicionar dados</button>
+<button type="submit" class="btn btn-primary" ">Adicionar dados</button>
+</form>
+
+<form action="/admin/linkprof">
+    <button type="submit" class="btn btn-primary" >Relacionar professor-matéria</button>
 </form>
 <div class="container">
     <div class="row justify-content-center">
