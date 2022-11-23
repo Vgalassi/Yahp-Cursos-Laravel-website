@@ -22,7 +22,7 @@ class User extends Authenticatable
         'email',
         'password',
         'CPF',
-        'endereco',
+        'cep',
         'filme',
         'username',
         'perm',

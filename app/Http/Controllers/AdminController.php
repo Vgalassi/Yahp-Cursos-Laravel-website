@@ -50,7 +50,7 @@ class AdminController extends Controller
             'email' => ['required', 'string', 'email', 'max:255','unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'CPF' => ['required','string','unique:users'],
-            'endereco' => ['required', 'string', 'max:255'],
+            'cep' => ['required','string', 'max:8'],
             'filme' => ['required', 'string', 'max:255'],
             'username' => ['required','string','max:50','unique:users'],
         ]);
@@ -62,8 +62,9 @@ class AdminController extends Controller
         $user->email = $request->email;
         $user->password = hash::make($request->password);
         $user->CPF = $request->CPF;
-        $user->endereco = $request->endereco;
+        $user->endereco = $request->cep;
         $user->filme = $request->filme;
+        
 
 
         $user->perm = 0;
@@ -84,7 +85,7 @@ class AdminController extends Controller
         'profname' => ['required', 'string', 'max:255'],
         'password' => ['required', 'string', 'min:8','confirmed'],
         'CPF' => ['required','string','unique:users'],
-        'profendereco' => ['required', 'string', 'max:255'],
+        'pcep' => ['required', 'string', 'max:8'],
         'username' => ['required','string','max:50','unique:users'],
     ]);
     $user = new user;
@@ -94,7 +95,7 @@ class AdminController extends Controller
     $user->username = $request->username;
     $user->password = hash::make($request->password);
     $user->CPF = $request->CPF;
-    $user->endereco = $request->profendereco;
+    $user->endereco = $request->pcep;
     $user->filme = 'N/A';
     $user ->email = 'N/A';
 

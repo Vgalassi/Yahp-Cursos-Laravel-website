@@ -116,9 +116,7 @@
                                 @enderror
                             </div>
                         </div>
-                            <!-- Inicio do formulario -->
-                            <form method="get" action=".">
-                            <div class="row ">
+                            <div class="row "> 
                             <label for="cep" class="col-md-4 col-form-label text-md-end">Cep</label>
 
                             <div class="col-md-6">
@@ -150,7 +148,6 @@
                                 <input name="cidade" type="text" id="cidade" value="" size="10" maxlength="9" class="form-control @error('cidade') is-invalid @enderror" required autocomplete="name" autofocus/></label><br />
                             </div>
                         </div>
-                        </form>
 
                         <div class="row mb-3">
                             <label for="filme" class="col-md-4 col-form-label text-md-end">Filme Favorito</label>
@@ -286,8 +283,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <!-- Inicio do formulario -->
-                        <form method="get" action=".">
+                        
                             <div class="row ">
                             <label for="pcep" class="col-md-4 col-form-label text-md-end">Cep</label>
 
@@ -320,7 +316,7 @@
                                 <input name="pcidade" type="text" id="pcidade" value="" size="10" maxlength="9" class="form-control @error('pcidade') is-invalid @enderror" required autocomplete="name" autofocus/></label><br />
                             </div>
                         </div>
-                        </form>
+                        
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
@@ -685,7 +681,7 @@
                 var script = document.createElement('script');
 
                 //Sincroniza com o callback.
-                script.src = 'https://viacep.com.br/ws/'+ cep + '/json/?callback=meu_callback';
+                script.src = 'https://viacep.com.br/ws/'+ cep + '/json/?callback=pmeu_callback';
 
                 //Insere script no documento e carrega o conteúdo.
                 document.body.appendChild(script);
