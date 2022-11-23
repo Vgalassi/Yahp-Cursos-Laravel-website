@@ -2,15 +2,16 @@
 
 @section('content')
 <p style="font-size:35px;" class="ms-5">Página do admin</p>
-<form action="/admin/create">
 
-<button type="submit" class="btn btn-primary ms-5" ">Adicionar dados</button>
-</form>
+<div class="d-grid gap-3">
+  <div class="p-2 "><form action="/admin/create">
 
-<form action="/admin/linkprof">
+<button type="submit" class="btn btn-primary ms-5">Adicionar dados</button>
+</form><form action="/admin/linkprof">
     <button type="submit" class="btn btn-primary ms-5" >Relacionar professor-matéria</button>
 
 </form>
+
 
 <table class="table container mt-3 table-hover">
   <thead class="table-success">
