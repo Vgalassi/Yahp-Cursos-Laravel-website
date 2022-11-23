@@ -67,13 +67,20 @@
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     @if(Auth::user()->perm == 0)
                                         <a href="/home" class="dropdown-item ">Meus cursos</a>
+                                        <a class="dropdown-item" href="/home/{{ Auth::user()->id}}">
+                                            Meu perfil
+                                        </a>
+                                    @endif
+                                    @if(Auth::user()->perm == 1)
+                                    <a class="dropdown-item" href="/professor/{{ Auth::user()->id}}">
+                                        Meu perfil
+                                    </a>
                                     @endif
                                     @if(Auth::user()->perm == 2)
                                         <a href="/admin" class="dropdown-item ">Admin</a>
                                     @endif
-                                    <a class="dropdown-item" href="/home/{{ Auth::user()->id}}">
-                                        Meu perfil
-                                    </a>
+                                    
+
                                     
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();

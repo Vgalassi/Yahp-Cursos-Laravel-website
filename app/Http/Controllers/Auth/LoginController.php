@@ -29,9 +29,11 @@ class LoginController extends Controller
     protected $redirectTo = RouteServiceProvider::HOME;
 
     protected function redirecTto(){
+        if(auth()->user()->perm == 0 )
+        return ('/home');
         if(auth()->user()->perm == 1)
         return ('/professor');
-        elseif(auth()->user()->perm == 2 )
+        if(auth()->user()->perm == 2 )
         return ('/admin');
     }
 

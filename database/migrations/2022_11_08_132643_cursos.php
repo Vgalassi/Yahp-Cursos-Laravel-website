@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('imagem');
             $table->integer('status')->nullable;
             $table->timestamps();
+            $table->foreignID('user_id')->nullable()->constrained();
+            
         });
     }
 
