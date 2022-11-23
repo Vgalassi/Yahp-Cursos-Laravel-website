@@ -132,4 +132,19 @@ public function create_curso( Request $request){
 
 
 }
+public function linkprof(){
+    $users = User::all();
+    $cursos = Curso::all();
+
+    return view('admin.linkprof',[ 'cursos' => $cursos, 'users' => $users]);
+}
+
+public function attachprof(Request $request){
+    $curso = curso::findOrFail($request->cursoid);
+    $user = user::findOrFail($request->profid);
+    $curso->user_id = $user->id;
+    $curso->save();
+    return back()->with("status","Professor " .$user->name. ' relacionado com ' .$curso->name );
+    
+}
 }

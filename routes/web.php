@@ -21,6 +21,8 @@ Route::get('/', function () {
 Auth::routes(['register' => false]);;
 
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index']);
+Route::get('/admin/linkprof', [App\Http\Controllers\AdminController::class, 'linkprof']);
+Route::get('/admin/linkprof/attach', [App\Http\Controllers\AdminController::class, 'attachprof']);
 Route::get('/admin/create', [App\Http\Controllers\AdminController::class, 'create']);
 Route::post('/admin/create/createalu', [App\Http\Controllers\AdminController::class, 'create_alu']);
 Route::post('/admin/create/createprof', [App\Http\Controllers\AdminController::class, 'create_prof']);
