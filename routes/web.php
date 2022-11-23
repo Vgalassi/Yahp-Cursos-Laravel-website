@@ -21,13 +21,19 @@ Route::get('/', function () {
 Auth::routes(['register' => false]);;
 
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index']);
+Route::get('/admin/linkprof', [App\Http\Controllers\AdminController::class, 'linkprof']);
+Route::get('/admin/linkprof/attach', [App\Http\Controllers\AdminController::class, 'attachprof']);
 Route::get('/admin/create', [App\Http\Controllers\AdminController::class, 'create']);
 Route::post('/admin/create/createalu', [App\Http\Controllers\AdminController::class, 'create_alu']);
 Route::post('/admin/create/createprof', [App\Http\Controllers\AdminController::class, 'create_prof']);
 Route::post('/admin/create/createcurso', [App\Http\Controllers\AdminController::class, 'create_curso']);
 
 Route::get('/professor', [App\Http\Controllers\ProfController::class, 'index']);
+Route::get('/professor/{id}', [App\Http\Controllers\UserController::class, 'show']);
 Route::get('/professor/edit/{id}', [App\Http\Controllers\ProfController::class, 'edit']);
+Route::put('/professor/update/{id}', [App\Http\Controllers\UserController::class, 'update']);
+Route::get('/professor/edit/password/{id}', [App\Http\Controllers\UserController::class, 'editpassword']);
+
 
 Route::get('/home', [App\Http\Controllers\UserController::class, 'index']);
 Route::get('/home/{id}', [App\Http\Controllers\UserController::class, 'show']);

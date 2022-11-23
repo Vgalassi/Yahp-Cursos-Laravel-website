@@ -8,8 +8,11 @@
 <p>Descrição Completa:{{ $curso->descricomp }}</p>
 <p>Mínimo de Alunos: {{ $curso->maxalu }}</p>
 <p>Máximos de Alunos: {{ $curso->minalu }}</p>
+@if($professor != NULL)
+<p>Professor: {{ $professor['name']}} </p>
+@endif
 
-@if(Auth::user->perm == 0)
+@if($user->perm == 0)
 @if (!$usuarioentrou)
 <form action="/cursos/join/{{ $curso->id }}" method="POST">
     @csrf
@@ -23,5 +26,6 @@
 @else
 <p>Você já está no curso</p>
 
+@endif
 @endif
 @endsection
