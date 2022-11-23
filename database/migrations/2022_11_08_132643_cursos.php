@@ -20,7 +20,8 @@ return new class extends Migration
             $table->string('descrisimp');
             $table->integer('minalu');
             $table->integer('maxalu');
-            $table->integer('status');
+            $table->string('imagem');
+            $table->integer('status')->nullable;
             $table->timestamps();
         });
     }

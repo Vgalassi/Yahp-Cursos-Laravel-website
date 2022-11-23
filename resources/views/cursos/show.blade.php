@@ -2,12 +2,14 @@
 
 @section('content')
 
+<img style="width:150px; height:150px;" src="{{ $curso->imagem }}" alt="cursoimage">
 <p>Nome: {{ $curso->name }}</p>
 <p>Descrição Simples: {{ $curso->descrisimp }}</p>
 <p>Descrição Completa:{{ $curso->descricomp }}</p>
 <p>Mínimo de Alunos: {{ $curso->maxalu }}</p>
 <p>Máximos de Alunos: {{ $curso->minalu }}</p>
 
+@if(Auth::user->perm == 0)
 @if (!$usuarioentrou)
 <form action="/cursos/join/{{ $curso->id }}" method="POST">
     @csrf

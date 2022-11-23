@@ -24,6 +24,9 @@ class User extends Authenticatable
         'CPF',
         'endereco',
         'filme',
+        'username',
+        'perm',
+        'imagem',
     ];
 
     /**

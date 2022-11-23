@@ -14,14 +14,18 @@ class UserController extends Controller
      *
      * @return void
      */
+
     public function __construct()
     {
         $this->middleware('auth');
     }
     
-    
     public function index()
     {
+        $admin = Auth::user();
+        if($admin->perm != 0){
+            return redirect('/');
+        }
         $user = Auth::user();
 
         $cursospart = $user->cursos;
@@ -30,6 +34,10 @@ class UserController extends Controller
 
     public function show($id)
     {
+        $admin = Auth::user();
+        if($admin->perm != 0 && $admin->perm != 1){
+            return redirect('/');
+        }
         user::findOrFail($id);
         $user = Auth::user();
         return view('users.show',['user' => $user]);
@@ -37,6 +45,10 @@ class UserController extends Controller
 
     public function edit($id)
     {
+        $admin = Auth::user();
+        if($admin->perm != 0){
+            return redirect('/');
+        }
         user::findOrFail($id);
         $user = Auth::user();
         
@@ -45,12 +57,46 @@ class UserController extends Controller
 
     public function update(Request $request)
     {
+        $admin = Auth::user();
+        if($admin->perm != 0){
+            return redirect('/');
+        }
         user::findOrFail($request->id)->update($request->all());
+
+        return redirect('/home')->with("status",'Dados alterados com sucesso');
+
+    }
+
+    public function editpassword($id)
+    {
+        $admin = Auth::user();
+        if($admin->perm != 0){
+            return redirect('/');
+        }
+        user::findOrFail($id);
+        $user = Auth::user();
+        
+        return view('users.editpassword',['user' => $user]) ;
+    }
+
+    public function updatepassword(Request $request)
+    {
+        $admin = Auth::user();
+        if($admin->perm != 0){
+            return redirect('/');
+        }
+        $request->validate([
+            'antigopassword' => 'required',
+            'password' => 'required|confirmed',
+        ]);
+        if(!hash::check($request->antigopassword,auth()->user()->password)){
+            return back()->with("error", "ERRO: Senha incorreta");
+        }
+
         User::whereId(auth()->user()->id)->update([
             'password' => Hash::make($request->password)
         ]);
 
-        return redirect('/home');
-
+        return redirect('/home')->with("status",'Senha alterada com sucesso');
     }
 }
