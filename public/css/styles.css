@@ -35,3 +35,12 @@ body{
     height: 30px;
     border-radius: 50%;
 }
+
+.title-index{
+    font-size: 100px;
+}
+
+.icons{
+    height: 16px;
+    width: 16px;
+}
