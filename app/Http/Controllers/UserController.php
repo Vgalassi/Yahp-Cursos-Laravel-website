@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Cursouser;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -27,9 +28,10 @@ class UserController extends Controller
             return redirect('/');
         }
         $user = Auth::user();
+        $notas = Cursouser::where('user_id','=',$user->id)->get();
 
         $cursospart = $user->cursos;
-        return view('users.index',['cursospart' => $cursospart]);
+        return view('users.index',['cursospart' => $cursospart,'notas' => $notas]);
     }
 
     public function show($id)

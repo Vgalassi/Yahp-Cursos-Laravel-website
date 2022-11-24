@@ -9,7 +9,10 @@ class Curso extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['status'];
+    protected $fillable = [
+        'status',
+        'user_id',
+        ];
 
 
     public function users(){

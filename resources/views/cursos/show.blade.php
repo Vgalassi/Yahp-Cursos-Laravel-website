@@ -9,10 +9,13 @@
 <p>Mínimo de Alunos: {{ $curso->maxalu }}</p>
 <p>Máximos de Alunos: {{ $curso->minalu }}</p>
 @if($professor != NULL)
-<p>Professor: {{ $professor['name']}} </p>
+
+<p>Professor: {{ $professor->name}} </p>
+
+
 @endif
 
-@if($user->perm == 0)
+
 @if (!$usuarioentrou)
 <form action="/cursos/join/{{ $curso->id }}" method="POST">
     @csrf
@@ -25,7 +28,5 @@
 </form>
 @else
 <p>Você já está no curso</p>
-
-@endif
 @endif
 @endsection
