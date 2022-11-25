@@ -21,13 +21,19 @@
                             {{ $cursosingle->name }}
                         </div>
                         <div class="mt-2 col-2">
-                            Nota:10
+                            <p>Nota:
+                            @foreach ($notas as $nota)
+                                @if($nota->curso_id == $cursosingle->id)
+                                    {{ $nota->nota }}
+                                @endif
+                            @endforeach
+                        </p>
                         </div>
                         <div class="col-3">
                             <form action="/cursos/leave/{{ $cursosingle->id }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="button" class="btn btn-danger">
+                                <button type="submit" class="btn btn-danger">
                                     Desmatricular-se
                                 </button>
                             </form> 

@@ -11,6 +11,7 @@
     <p class="card-text">{{ $curso->descrisimp }}</p>
     <p class="card-text">{{ $curso->descricomp }}</p>
 
+
     <p class="card-text">Mínimo de Alunos: {{ $curso->maxalu }}</p>
     <p class="card-text">Máximos de Alunos: {{ $curso->minalu }}</p>
     @if($professor != NULL)
@@ -65,3 +66,4 @@
 
 
 @endsection
+

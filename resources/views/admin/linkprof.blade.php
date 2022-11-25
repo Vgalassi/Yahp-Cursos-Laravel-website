@@ -47,7 +47,7 @@
     <div class="row mb-3">
         <label for="profid" class="col-md-4 col-form-label text-md-end"></label>
         <div class="col-md-6">
-            <input  id="profid" type="text" class="form-control @error('profid') is-invalid @enderror" name="profid" value="" required autocomplete="profid" autofocus>
+            <input  style="display:none;" id="profid" type="text" class="form-control @error('profid') is-invalid @enderror" name="profid" value="" required autocomplete="profid" autofocus>
 
             @error('profid')
                 <span class="invalid-feedback" role="alert">
@@ -60,7 +60,7 @@
     <div class="row mb-3">
         <label for="cursoid" class="col-md-4 col-form-label text-md-end"></label>
         <div class="col-md-6">
-            <input  id="cursoid" type="text" class="form-control @error('cursoid') is-invalid @enderror" name="cursoid" value="" required autocomplete="cursoid" autofocus>
+            <input  style="display:none;" id="cursoid" type="text" class="form-control @error('cursoid') is-invalid @enderror" name="cursoid" value="" required autocomplete="cursoid" autofocus>
 
             @error('cursoid')
                 <span class="invalid-feedback" role="alert">
@@ -73,6 +73,21 @@
     <button class ="btn btn-primary">Relacionar</button>
     </div>
     </form>
+    
+    <p>Minhas Relações:</p>
+    @foreach ($users as $user)
+        @if($user->perm == 1)
+            @foreach ($cursos as $curso)
+                @if($curso->user_id == $user->id)
+                    <p>{{ $curso->name }} -> {{ $user->name }}
+                        <form action="/admin/linkprof/dettach/{{ $curso->id }}">
+                        <button type="submit" class="btn btn-danger">Desatribuir</button></p>
+                        </form>
+                @endif
+            @endforeach
+        @endif
+        
+    @endforeach
 
 
     <script>
