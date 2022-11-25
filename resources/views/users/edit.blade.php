@@ -64,10 +64,10 @@
 
 
                         <div class="row "> 
-                            <label for="cep" class="col-md-4 col-form-label text-md-end">Cep</label>
+                            <label for="endereco" class="col-md-4 col-form-label text-md-end">Cep</label>
 
                             <div class="col-md-6">
-                                <input name="cep" type="text" id="cep" value = "{{ $user->endereco }}" size="10" maxlength="9" class="form-control @error('cep') is-invalid @enderror" required autocomplete="name" autofocus value="{{ old('endereco') }}"
+                                <input name="endereco" type="text" id="endereco" value = "{{ $user->endereco }}" size="10" maxlength="9"
                                 onblur="pesquisacep(this.value);" /></label><br />
                             </div>
                         </div>

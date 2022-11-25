@@ -63,7 +63,16 @@ class UserController extends Controller
         if($admin->id != $id && $admin->perm != 2){
             return redirect('/');
         }
-        user::findOrFail($request->id)->update($request->all());
+
+
+        $user = user::findOrFail($request->id)->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'CPF' => $request->CPF,
+            'endereco' => $request->endereco,
+            'filme' => $request->filme
+        ]);
+
 
         if($admin->perm == 1){
             return redirect ('/professor')->with("status",'Dados alterados com sucesso');
