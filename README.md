@@ -45,7 +45,22 @@ Inicializar a database
 ```
 php artisan migrate
 ```
+Colocar Dados Prontos na Database
+```
+php artisan db:seed --class=UserSeeder
+```
 
+GIT:
+GIT CLONE
+```
+git clone (link do repositório)
+```
+Dando commit
+```
+git add .
+git commit -m "(mensagem de commit)"
+git push origin (sua branch)
+```
 
 Acesse o projeto
 [http://localhost:8080](http://localhost:8080)

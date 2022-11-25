@@ -37,11 +37,11 @@
                         @method('PUT')
 
                         <div class="row mb-3">
-                            <label for="profimagem" class="col-md-4 col-form-label text-md-end"></label>
+                            <label for="imagem" class="col-md-4 col-form-label text-md-end"></label>
                             <div class="col-md-6">
-                                <input  style="display:none;"id="profimagem" type="text" class="form-control @error('profimagem') is-invalid @enderror" name="profimagem" value="{{ $user->imagem }}" required autocomplete="profimagem" autofocus>
+                                <input  style="display:none;"id="imagem" type="text" class="form-control @error('imagem') is-invalid @enderror" name="imagem" value="{{ $user->imagem }}" required autocomplete="imagem" autofocus>
 
-                                @error('profimagem')
+                                @error('imagem')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -145,7 +145,7 @@
         document.getElementById("wisetree").style.display = "none";
         document.getElementById("messi").style.display = "none";
         document.getElementById("atumalaca").style.display = "block";
-        document.getElementById("profimagem").value = "/images/profavatar/atumalaca.jpg";
+        document.getElementById("imagem").value = "/images/profavatar/atumalaca.jpg";
         texto = "Atumalaca";
         document.getElementById("texto").innerHTML = texto;
     }
@@ -154,7 +154,7 @@
         document.getElementById("atumalaca").style.display = "none";
         document.getElementById("messi").style.display = "none";
         document.getElementById("wisetree").style.display = "block";
-        document.getElementById("profimagem").value = "/images/profavatar/wisetree.jpg";
+        document.getElementById("imagem").value = "/images/profavatar/wisetree.jpg";
         texto = "Wise Tree";
         document.getElementById("texto").innerHTML = texto;
     }
@@ -164,7 +164,7 @@
         document.getElementById("wisetree").style.display = "none";
         document.getElementById("atumalaca").style.display = "none";
         document.getElementById("messi").style.display = "block";
-        document.getElementById("profimagem").value = "/images/profavatar/messicareca.jpg";
+        document.getElementById("imagem").value = "/images/profavatar/messicareca.jpg";
         texto = "Messi";
         document.getElementById("texto").innerHTML = texto;
     }

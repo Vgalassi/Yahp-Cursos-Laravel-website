@@ -2,9 +2,11 @@
 
 
 @section('content')
-
+<div class="container">
 <form action="/cursos" method="GET">
+<div class="input-group mb-3 w-25">
     <input type="text" id="search" name="search" class="form-control" placeholder="Procure um curso">
+</div>
 </form>
 
 @if ($search)
@@ -16,23 +18,42 @@
     @elseif (count($cursos) == 0)
     <p>Não tem curso</p>
 @endif
-
-
-@foreach ($cursos as $curso)
-    <p>
-        Nome: {{ $curso->name }} 
-        @if (  $curso->status == 0)
-        Status: Matrículas abertas
+</div>
+<table class="table container mt-3 table-hover">
+  <thead class="table-success">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Curso</th>
+      <th scope="col">Estado</th>
+      <th scope="col">Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+  @foreach ($cursos as $curso)
+<tr>
+      <th scope="row">{{ $curso->id }}</th>
+      <td>{{ $curso->name }}</td>
+      <td> @if (  $curso->status == 0)
+        Matrículas abertas
         @endif
         @if (  $curso->status == 1)
-        Status: Mínimo de Alunos não Atingido
+        Mínimo de Alunos não Atingido
         @endif
         @if (  $curso->status == 2)
-        Status: Matrículas Fechadas
-        @endif
-        <a href="/cursos/{{ $curso->id }}">Saiba mais</a>
-    </p>
+        Matrículas Fechadas
+        @endif</td>
+      <td>
+        <button type="button" class="btn btn-sm btn-info">
+            <img src="/images/info-icon.png" alt="Info" class="icons rounded mx-auto d-block">
+        </button> 
 
-@endforeach
+      </td>
+    
+      
+    </tr>
+    @endforeach
+    
+  </tbody>
 
+</table>
 @endsection
