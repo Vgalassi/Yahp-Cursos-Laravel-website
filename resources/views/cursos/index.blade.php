@@ -24,7 +24,6 @@
     <tr>
       <th scope="col">ID</th>
       <th scope="col">Curso</th>
-      <th scope="col">Descrição</th>
       <th scope="col">Estado</th>
       <th scope="col">Ações</th>
     </tr>
@@ -34,7 +33,6 @@
 <tr>
       <th scope="row">{{ $curso->id }}</th>
       <td>{{ $curso->name }}</td>
-      <td>{{ $curso->descrisimp }}</td>
       <td> @if (  $curso->status == 0)
         Matrículas abertas
         @endif
@@ -45,10 +43,11 @@
         Matrículas Fechadas
         @endif</td>
       <td>
-        <button type="button" class="btn btn-sm btn-info">
+        <form action="/cursos/{{ $curso->id }}">
+        <button type="submit" class="btn btn-sm btn-info">
             <img src="/images/info-icon.png" alt="Info" class="icons rounded mx-auto d-block">
         </button> 
-
+        </form>
       </td>
     
       
