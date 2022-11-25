@@ -64,14 +64,26 @@ class UserController extends Controller
             return redirect('/');
         }
 
-
+        $user = user::findOrFail($request->id);
+        if($user->perm == 0){
         $user = user::findOrFail($request->id)->update([
             'name' => $request->name,
+            'username' => $request->username,
             'email' => $request->email,
             'CPF' => $request->CPF,
             'endereco' => $request->endereco,
-            'filme' => $request->filme
+            'filme' => $request->filme,
         ]);
+        }
+        else{
+            $user = user::findOrFail($request->id)->update([
+                'name' => $request->name,
+                'username' => $request->username,
+                'CPF' => $request->CPF,
+                'endereco' => $request->endereco,
+                'imagem' => $request->imagem
+            ]);
+        }
 
 
         if($admin->perm == 1){

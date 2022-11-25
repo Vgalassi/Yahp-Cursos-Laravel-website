@@ -33,6 +33,20 @@
                         </div>
 
                         <div class="row mb-3">
+                            <label for="username" class="col-md-4 col-form-label text-md-end">Nome de Usuário</label>
+
+                            <div class="col-md-6">
+                                <input id="username" type="text" value = "{{ $user->username }}" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('name') }}" required autocomplete="username" autofocus>
+
+                                @error('username')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
                             <label for="email" class="col-md-4 col-form-label text-md-end">Endereço de e-mail</label>
 
                             <div class="col-md-6">
@@ -63,12 +77,12 @@
                         </div>
 
 
-                        <div class="row "> 
+                        <div class="row mb-3"> 
                             <label for="endereco" class="col-md-4 col-form-label text-md-end">Cep</label>
 
                             <div class="col-md-6">
-                                <input name="endereco" type="text" id="endereco" value = "{{ $user->endereco }}" size="10" maxlength="9"
-                                onblur="pesquisacep(this.value);" /></label><br />
+                                <input name="endereco" type="number" id="endereco" value = "{{ $user->endereco }}" size="10" maxlength="9" class="form-control"
+                                onblur="pesquisacep(this.value);" />
                             </div>
                         </div>
 
