@@ -21,14 +21,21 @@ Route::get('/', function () {
 Auth::routes(['register' => false]);;
 
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index']);
+
+Route::delete('/admin/deleteuser/{id}', [App\Http\Controllers\AdminController::class, 'delete_user']);
+Route::delete('/admin/deletecurso/{id}', [App\Http\Controllers\AdminController::class, 'delete_curso']);
+Route::get('/admin/editalu/{id}', [App\Http\Controllers\UserController::class, 'edit']);
+Route::get('/admin/editprof/{id}', [App\Http\Controllers\ProfController::class, 'edit']);
 Route::get('/admin/linkprof', [App\Http\Controllers\AdminController::class, 'linkprof']);
 Route::get('/admin/linkprof/attach', [App\Http\Controllers\AdminController::class, 'attachprof']);
+Route::get('/admin/linkprof/dettach/{id}', [App\Http\Controllers\AdminController::class, 'dettachprof']);
 Route::get('/admin/create', [App\Http\Controllers\AdminController::class, 'create']);
 Route::post('/admin/create/createalu', [App\Http\Controllers\AdminController::class, 'create_alu']);
 Route::post('/admin/create/createprof', [App\Http\Controllers\AdminController::class, 'create_prof']);
 Route::post('/admin/create/createcurso', [App\Http\Controllers\AdminController::class, 'create_curso']);
 
 Route::get('/professor', [App\Http\Controllers\ProfController::class, 'index']);
+Route::post('/professor/notas/{cursoid}/{aluid}', [App\Http\Controllers\ProfController::class, 'notas']);
 Route::get('/professor/{id}', [App\Http\Controllers\UserController::class, 'show']);
 Route::get('/professor/edit/{id}', [App\Http\Controllers\ProfController::class, 'edit']);
 Route::put('/professor/update/{id}', [App\Http\Controllers\UserController::class, 'update']);

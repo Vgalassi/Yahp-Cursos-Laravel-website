@@ -40,8 +40,8 @@ class CursoController extends Controller
                 } 
             }
         }
-        $professor = User::where('id', $curso->user_id)->first()->toArray();
         
+        $professor = User::find($curso->user_id);
         return view('cursos.show',['curso' => $curso,'usuarioentrou' => $usuarioentrou,'user' => $user,'professor'=>$professor]);
     }
 
@@ -66,10 +66,12 @@ class CursoController extends Controller
     }
 
     public function leave($id){
+
+        $user = Auth::user();
+
         if($user->perm != 0){
             return reditect ('/cursos');
         }
-        $user = Auth::user();
 
         $user->cursos()->detach($id);
         $curso = curso::findOrfail($id);

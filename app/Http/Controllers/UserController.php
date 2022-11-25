@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Cursouser;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -27,9 +28,10 @@ class UserController extends Controller
             return redirect('/');
         }
         $user = Auth::user();
+        $notas = Cursouser::where('user_id','=',$user->id)->get();
 
         $cursospart = $user->cursos;
-        return view('users.index',['cursospart' => $cursospart]);
+        return view('users.index',['cursospart' => $cursospart,'notas' => $notas]);
     }
 
     public function show($id)
@@ -46,27 +48,30 @@ class UserController extends Controller
     public function edit($id)
     {
         $admin = Auth::user();
-        if($admin->perm != 0){
+        if($admin->id != $id && $admin->perm != 2){
             return redirect('/');
         }
-        user::findOrFail($id);
-        $user = Auth::user();
+        $user = user::findOrFail($id);
+        
         
         return view('users.edit',['user' => $user]) ;
     }
 
-    public function update(Request $request)
+    public function update($id,Request $request)
     {
         $admin = Auth::user();
-        if($admin->perm != 0 && $admin->perm != 1){
+        if($admin->id != $id && $admin->perm != 2){
             return redirect('/');
         }
         user::findOrFail($request->id)->update($request->all());
 
         if($admin->perm == 1){
-            return redirect ('/professor');
+            return redirect ('/professor')->with("status",'Dados alterados com sucesso');
         }
 
+        if($admin->perm == 2){
+            return back()->with("status", "Dados alterados com sucesso");
+        }
         return redirect('/home')->with("status",'Dados alterados com sucesso');
 
     }
@@ -74,11 +79,10 @@ class UserController extends Controller
     public function editpassword($id)
     {
         $admin = Auth::user();
-        if($admin->perm != 0 && $admin->perm != 1 && $admin->perm !=2){
+        if($admin->id != $id && $admin->perm != 2){
             return redirect('/');
         }
-        user::findOrFail($id);
-        $user = Auth::user();
+        $user = user::findOrFail($id);
         
         return view('users.editpassword',['user' => $user]) ;
     }
@@ -86,7 +90,7 @@ class UserController extends Controller
     public function updatepassword(Request $request)
     {
         $admin = Auth::user();
-        if($admin->perm != 0 && $admin->perm != 1 && $admin->perm !=2){
+        if($admin->id != $id && $admin->perm != 2){
             return redirect('/');
         }
         $request->validate([

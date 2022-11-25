@@ -133,6 +133,20 @@ public function create_curso( Request $request){
 
 
 }
+public function delete_user($id){
+    User::findOrFail($id)->delete();
+
+    return back()->with("status", "Usuário excluído com sucesso!");
+
+}
+
+public function delete_curso($id){
+    Curso::findOrFail($id)->delete();
+
+    return back()->with("status", "Curso excluído com sucesso!");
+
+}
+
 public function linkprof(){
     $users = User::all();
     $cursos = Curso::all();
@@ -147,5 +161,14 @@ public function attachprof(Request $request){
     $curso->save();
     return back()->with("status","Professor " .$user->name. ' relacionado com ' .$curso->name );
     
+}
+
+public function dettachprof($id){
+    
+    $curso = Curso::findOrFail($id);
+    $user = User::findOrFail($curso->user_id);
+    $curso->user_id = NULL;
+    $curso->save();
+    return back()->with("status","Professor " .$user->name. ' desatribuído de ' .$curso->name );
 }
 }
