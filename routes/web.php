@@ -21,8 +21,14 @@ Route::get('/', function () {
 Auth::routes(['register' => false]);;
 
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index']);
+
+Route::delete('/admin/deleteuser/{id}', [App\Http\Controllers\AdminController::class, 'delete_user']);
+Route::delete('/admin/deletecurso/{id}', [App\Http\Controllers\AdminController::class, 'delete_curso']);
+Route::get('/admin/editalu/{id}', [App\Http\Controllers\UserController::class, 'edit']);
+Route::get('/admin/editprof/{id}', [App\Http\Controllers\ProfController::class, 'edit']);
 Route::get('/admin/linkprof', [App\Http\Controllers\AdminController::class, 'linkprof']);
 Route::get('/admin/linkprof/attach', [App\Http\Controllers\AdminController::class, 'attachprof']);
+Route::get('/admin/linkprof/dettach/{id}', [App\Http\Controllers\AdminController::class, 'dettachprof']);
 Route::get('/admin/create', [App\Http\Controllers\AdminController::class, 'create']);
 Route::post('/admin/create/createalu', [App\Http\Controllers\AdminController::class, 'create_alu']);
 Route::post('/admin/create/createprof', [App\Http\Controllers\AdminController::class, 'create_prof']);

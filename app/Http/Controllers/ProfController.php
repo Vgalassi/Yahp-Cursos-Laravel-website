@@ -32,11 +32,11 @@ class ProfController extends Controller
     public function edit($id)
     {
         $admin = Auth::user();
-        if($admin->perm != 1){
+        if($admin->id != $id && $admin->perm != 2){
             return redirect('/');
         }
-        user::findOrFail($id);
-        $user = Auth::user();
+        $user = user::findOrFail($id);
+        
         
         return view('profs.edit',['user' => $user]) ;
     }
