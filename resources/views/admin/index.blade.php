@@ -54,12 +54,17 @@
       <th scope="row">{{ $curso->id }}</th>
       <td>{{ $curso->name }}</td>
       <td>
-        <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#{{ $curso->descricomp }}">
+        <div class="d-flex">
+        <form action="/admin/show/{{ $curso->id }}">
+        <button type="submit" class="btn btn-sm btn-info">
             <img src="/images/info-icon.png" alt="Info" class="icons rounded mx-auto d-block">
         </button> 
-        <button type="button" class="btn btn-sm btn-success">
+      </form>
+        <form action="/admin/editcurso/{{ $curso->id }}">
+        <button type="submit" class="btn btn-sm btn-success">
             <img src="/images/edit-icon.png" alt="Editar" class="icons rounded mx-auto d-block">
         </button>
+      </form >
         <form action="/admin/deletecurso/{{ $curso->id }}" method="POST">
             @csrf
             @method('DELETE')
@@ -67,6 +72,7 @@
             <img src="/images/bin-icon.png" alt="Remover" class="icons rounded mx-auto d-block ">
         </button>
         </form>
+        </div>
       </td>
     
       
@@ -117,6 +123,7 @@
         <th scope="row">{{ $user->id }}</th>
         <td>{{ $user->name }}</td>
         <td>
+          <div class="d-flex">
             <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#{{ $user->username }}">
                 <img src="/images/info-icon.png" alt="Info" class="icons rounded mx-auto d-block">
             </button>
@@ -133,6 +140,7 @@
                 <img src="/images/bin-icon.png" alt="Remover" class="icons rounded mx-auto d-block">
             </button>
             </form>
+            </div>
             
         </td>
 
@@ -182,6 +190,7 @@
         <th scope="row">{{ $user->id }}</th>
         <td>{{ $user->name }}</td>
         <td>
+          <div class="d-flex">
             <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#{{ $user->username }}">
                 <img src="/images/info-icon.png" alt="Info" class="icons rounded mx-auto d-block">
             </button>
@@ -198,6 +207,7 @@
             </button>
             </form>
         </td>
+          </div>
 
     </tr>
     @endif

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Curso;
+use App\Models\Cursouser;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -21,6 +22,7 @@ class AdminController extends Controller
         if($admin->perm != 2){
             return redirect('/');
         }
+        
         $cursos = Curso::all();
         $users = User::all();
 
@@ -131,9 +133,50 @@ public function create_curso( Request $request){
     $curso->save();
     return back()->with("status", "Curso " .$curso->name. ' adicionado com sucesso!');
 
+}
 
+public function show_curso($id){
+    $admin = Auth::user();
+    if($admin->perm != 2){
+        return redirect('/');
+    }
+
+    $curso = Curso::findOrfail($id);
+    $notas = Cursouser::where('curso_id', '=',$id )->get();
+    $soma = 0;
+    $reprovado = 0;
+    $aprovado = 0;
+    $reprovadop = 0;
+    $aprovadop = 0;
+    foreach ($notas as $nota){
+        $soma = $soma + $nota->nota;
+        if($nota->nota >= 5){
+            $aprovado = $aprovado + 1;
+        }
+        else{
+            $reprovado = $reprovado + 1;
+        }
+    }
+    if(count($notas) != 0){
+        $media = $soma/count($notas);
+        $aprovadop = ($aprovado/count($notas)) * 100;
+        $reprovadop = ($reprovado/count($notas)) * 100;
+    }
+    else{
+        $media = NULL;
+    }
+    $users= User::where('perm', '=', 0)->get();
+    $professor = User::find($curso->user_id);
+
+    return view('admin.show',['curso' => $curso,'users' =>$users,'professor' => $professor,'media' => $media,
+    'notas'=> $notas,'aprovado' => $aprovado,'reprovado' => $reprovado,'aprovadop' => $aprovadop,'reprovadop' => $reprovadop]);
+    
 }
 public function delete_user($id){
+    $admin = Auth::user();
+    if($admin->perm != 2){
+        return redirect('/');
+    }
     User::findOrFail($id)->delete();
 
     return back()->with("status", "Usuário excluído com sucesso!");
@@ -141,6 +184,10 @@ public function delete_user($id){
 }
 
 public function delete_curso($id){
+    $admin = Auth::user();
+    if($admin->perm != 2){
+        return redirect('/');
+    }
     Curso::findOrFail($id)->delete();
 
     return back()->with("status", "Curso excluído com sucesso!");
@@ -148,6 +195,10 @@ public function delete_curso($id){
 }
 
 public function linkprof(){
+    $admin = Auth::user();
+    if($admin->perm != 2){
+        return redirect('/');
+    }
     $users = User::all();
     $cursos = Curso::all();
 
@@ -155,6 +206,10 @@ public function linkprof(){
 }
 
 public function attachprof(Request $request){
+    $admin = Auth::user();
+    if($admin->perm != 2){
+        return redirect('/');
+    }
     $curso = curso::findOrFail($request->cursoid);
     $user = user::findOrFail($request->profid);
     $curso->user_id = $user->id;
@@ -164,6 +219,10 @@ public function attachprof(Request $request){
 }
 
 public function dettachprof($id){
+    $admin = Auth::user();
+    if($admin->perm != 2){
+        return redirect('/');
+    }
     
     $curso = Curso::findOrFail($id);
     $user = User::findOrFail($curso->user_id);
@@ -171,4 +230,148 @@ public function dettachprof($id){
     $curso->save();
     return back()->with("status","Professor " .$user->name. ' desatribuído de ' .$curso->name );
 }
+
+public function join(Request $request,$id){
+    $admin = Auth::user();
+
+    if($admin->perm != 2){
+        return redirect ('/cursos');
+    }
+    $curso = curso::findOrfail($id);
+    if($curso->status == 2 || $curso->status == 3){
+        return back()->with('erro','ERRO: Matrículas fechadas!');
+    }
+    $user = User::findOrfail($request->alunoid);
+
+    $cursosusuario = $user->cursos->toArray();
+    foreach ($cursosusuario as $cursousuario){
+        if($cursousuario['id'] == $id){
+            return back()->with('erro','Aluno já está no curso');
+        } 
+    }
+    $user->cursos()->attach($id);
+
+    $curso = curso::findOrfail($id);
+
+    $alunos = User::where('perm', '=', 0)->get();
+    $count = 0;
+
+    foreach($alunos as $aluno){
+        foreach($aluno->cursos as $cursoalu){
+            if($cursoalu->id == $curso->id){
+                $count = $count + 1;
+            }
+        }
+    }
+
+    if($count < $curso->minalu ){
+        $curso->status = 0;
+       }
+       elseif($count >= $curso->maxalu){
+           $curso->status = 2;
+       }
+       else{
+           $curso->status = 1;
+       }
+       $curso->save();
+    
+
+    return back()->with('status','Aluno ' . $user->name . ' matriculado com sucesso em: ' . $curso->name);
+}
+
+public function edit_curso($id){
+    $admin = Auth::user();
+    if($admin->perm != 2){
+        return redirect ('/cursos');
+    }
+    $curso = Curso::findOrFail($id);
+
+    return view('admin.edit',['curso' => $curso]);
+}
+
+public function update_curso($id,Request $request){
+    $admin = Auth::user();
+    if($admin->perm != 2){
+        return redirect ('/cursos');
+    }
+    if($request->maxalu < $request->minalu){
+        return back()->with('erro','ERRO: mínimo de alunos maior do que máximo de alunos');}
+
+    $alunos = User::where('perm', '=', 0)->get();
+    $curso = Curso::findOrfail($id);
+    $count = 0;
+    foreach($alunos as $aluno){
+        foreach($aluno->cursos as $cursoalu){
+            if($cursoalu->id == $curso->id){
+                $count = $count + 1;
+            }
+        }
+    }
+
+    Curso::findOrfail($id)->update($request->all());
+    $curso = Curso::findOrfail($id);
+
+    if($curso->status != 3){
+    if($count < $curso->minalu ){
+     $curso->status = 0;
+    }
+    elseif($count >= $curso->maxalu){
+        $curso->status = 2;
+    }
+    else{
+        $curso->status = 1;
+    }
+}
+    
+    $curso->save();
+    return back()->with("status", "Dados alterados com sucesso");
+
+}
+    public function close($id){
+        $admin = Auth::user();
+        if($admin->perm != 2){
+            return redirect ('/cursos');
+        }
+
+        $curso = Curso::findOrfail($id);
+        $curso->status = 3;
+        $curso->save();
+
+        return back()->with("status", "Curso fechado com sucesso");
+    }
+
+    public function open($id){
+        $admin = Auth::user();
+        if($admin->perm != 2){
+            return redirect ('/cursos');
+        }
+
+    $alunos = User::where('perm', '=', 0)->get();
+    $curso = Curso::findOrfail($id);
+    $count = 0;
+    foreach($alunos as $aluno){
+        foreach($aluno->cursos as $cursoalu){
+            if($cursoalu->id == $curso->id){
+                $count = $count + 1;
+            }
+        }
+    }
+
+    if($count < $curso->minalu ){
+        $curso->status = 0;
+       }
+    elseif($count >= $curso->maxalu){
+        $curso->status = 2;
+    }
+    else{
+        $curso->status = 1;
+    }
+
+        
+    $curso->save();
+
+        return back()->with("status", "Fechamento forçado cancelado com sucesso!");
+    }
+
+
 }

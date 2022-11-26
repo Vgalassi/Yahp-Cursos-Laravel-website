@@ -22,8 +22,8 @@
 <table class="table container mt-3 table-hover">
   <thead class="table-success">
     <tr>
-      <th scope="col">ID</th>
       <th scope="col">Curso</th>
+      <th scope="col">Descrição</th>
       <th scope="col">Estado</th>
       <th scope="col">Ações</th>
     </tr>
@@ -31,18 +31,16 @@
   <tbody>
   @foreach ($cursos as $curso)
 <tr>
-      <th scope="row">{{ $curso->id }}</th>
-      <td>{{ $curso->name }}</td>
-      <td> @if (  $curso->status == 0)
-        Matrículas abertas
-        @endif
-        @if (  $curso->status == 1)
-        Mínimo de Alunos não Atingido
-        @endif
-        @if (  $curso->status == 2)
-        Matrículas Fechadas
+      <th scope="row">{{ $curso->name }}</th>
+      <td>{{ $curso->descrisimp }}</td>
+      <td> @if($curso->status == 0)
+          <p>Mínimo de alunos não atingido!</p>
+        @elseif ($curso->status == 2 || $curso->status == 3)
+          <p>Matrículas Encerradas</p>
+        @else
+          <p>Matrículas Abertas - Curso acontecerá! </p>
         @endif</td>
-      <td>
+        <td>
         <form action="/cursos/{{ $curso->id }} ">
         <button type="submit" class="btn btn-sm btn-info">
             <img src="/images/info-icon.png" alt="Info" class="icons rounded mx-auto d-block">

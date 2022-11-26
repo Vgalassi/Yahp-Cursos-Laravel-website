@@ -72,6 +72,9 @@
                                         </a>
                                     @endif
                                     @if(Auth::user()->perm == 1)
+                                    <a class="dropdown-item" href="/professor">
+                                        Cursos lecionados
+                                    </a>
                                     <a class="dropdown-item" href="/professor/{{ Auth::user()->id}}">
                                         Meu perfil
                                     </a>

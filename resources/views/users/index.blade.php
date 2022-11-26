@@ -30,7 +30,7 @@
                         </p>
                         </div>
                         <div class="col-3">
-                            <form action="/cursos/leave/{{ $cursosingle->id }}" method="POST">
+                            <form action="/cursos/leave/{{ $cursosingle->id }}/{{ $user->id }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger">
