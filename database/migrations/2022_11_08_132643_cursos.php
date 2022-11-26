@@ -16,12 +16,15 @@ return new class extends Migration
         Schema::create('cursos', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('descricomp');
+            $table->text('descricomp');
             $table->string('descrisimp');
             $table->integer('minalu');
             $table->integer('maxalu');
-            $table->string('status');
+            $table->string('imagem');
+            $table->integer('status')->nullable;
             $table->timestamps();
+            $table->foreignID('user_id')->nullable()->constrained()->onDelete('cascade');;
+            
         });
     }
 
