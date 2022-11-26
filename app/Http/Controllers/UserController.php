@@ -31,7 +31,7 @@ class UserController extends Controller
         $notas = Cursouser::where('user_id','=',$user->id)->get();
 
         $cursospart = $user->cursos;
-        return view('users.index',['cursospart' => $cursospart,'notas' => $notas]);
+        return view('users.index',['cursospart' => $cursospart,'notas' => $notas,'user' => $user]);
     }
 
     public function show($id)

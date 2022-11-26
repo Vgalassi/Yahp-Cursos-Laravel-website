@@ -47,10 +47,19 @@ class CursoController extends Controller
 
 
     public function join($id){
-        $user = Auth::user();
-        if($user->perm != 0){
-            return reditect ('/cursos');
+        $admin = Auth::user();
+
+        if($admin->perm != 0){
+            return redirect ('/cursos');
         }
+
+        $curso = curso::findOrfail($id);
+        if($curso->status == 2 || $curso->status == 3){
+            return back();
+        }
+
+        $user = Auth::user();
+
         $cursosusuario = $user->cursos->toArray();
         foreach ($cursosusuario as $cursousuario){
             if($cursousuario['id'] == $id){
@@ -61,20 +70,74 @@ class CursoController extends Controller
 
         $curso = curso::findOrfail($id);
         
+        $alunos = User::where('perm', '=', 0)->get();
+        $count = 0;
+        foreach($alunos as $aluno){
+            foreach($aluno->cursos as $cursoalu){
+                if($cursoalu->id == $curso->id){
+                    $count = $count + 1;
+                }
+            }
+        }
+    
+        $curso = Curso::findOrfail($id);
+    
+        if($curso->status != 3){
+        if($count < $curso->minalu ){
+         $curso->status = 0;
+        }
+        elseif($count >= $curso->maxalu){
+            $curso->status = 2;
+        }
+        else{
+            $curso->status = 1;
+        }
+
+    }
+        $curso->save();
+        
 
         return redirect ('/home')->with('status','Matriculado com sucesso em: ' . $curso->name);
     }
 
-    public function leave($id){
+    public function leave($cursoid,$aluid){
 
-        $user = Auth::user();
+        $admin = Auth::user();
 
-        if($user->perm != 0){
-            return reditect ('/cursos');
+        if($admin->id != $aluid && $admin->perm != 2){
+            return redirect ('/cursos');
         }
 
-        $user->cursos()->detach($id);
-        $curso = curso::findOrfail($id);
+        $user = User::findOrFail($aluid);
+        $user->cursos()->detach($cursoid);
+        $curso = curso::findOrfail($cursoid);
+
+        $alunos = User::where('perm', '=', 0)->get();
+        $count = 0;
+        foreach($alunos as $aluno){
+            foreach($aluno->cursos as $cursoalu){
+                if($cursoalu->id == $curso->id){
+                    $count = $count + 1;
+                }
+            }
+        }
+
+        if($curso->status != 3){
+        if($count < $curso->minalu ){
+            $curso->status = 0;
+           }
+           elseif($count >= $curso->maxalu){
+               $curso->status = 2;
+           }
+           else{
+               $curso->status = 1;
+           }
+           $curso->save();
+        
+        }
+        if($admin->perm == 2){
+            return back()->with('status','Aluno '. $user->name . ' desmatriculado com sucesso');
+        }
 
         return redirect ('/home')->with('status','Você se desmatriculou de: ' . $curso->name);
     }

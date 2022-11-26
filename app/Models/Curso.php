@@ -10,6 +10,12 @@ class Curso extends Model
     use HasFactory;
 
     protected $fillable = [
+        'name',
+        'descrisimp',
+        'descricomp',
+        'minalu',
+        'maxalu',
+        'imagem',
         'status',
         'user_id',
         ];

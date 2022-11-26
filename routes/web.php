@@ -24,6 +24,13 @@ Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index']);
 
 Route::delete('/admin/deleteuser/{id}', [App\Http\Controllers\AdminController::class, 'delete_user']);
 Route::delete('/admin/deletecurso/{id}', [App\Http\Controllers\AdminController::class, 'delete_curso']);
+Route::delete('/admin/show/dettachalu/{cursoid}/{aluid}', [App\Http\Controllers\CursoController::class, 'leave'])->middleware('auth');
+Route::get('/admin/show/attachalu/{id}',[App\Http\Controllers\AdminController::class, 'join'])->middleware('auth');
+Route::get('/admin/show/{id}', [App\Http\Controllers\AdminController::class, 'show_curso']);
+Route::get('/admin/show/close/{id}', [App\Http\Controllers\AdminController::class, 'close']);
+Route::get('/admin/show/open/{id}', [App\Http\Controllers\AdminController::class, 'open']);
+Route::get('/admin/editcurso/{id}', [App\Http\Controllers\AdminController::class, 'edit_curso']);
+Route::put('/admin/updatecurso/{id}', [App\Http\Controllers\AdminController::class, 'update_curso']);
 Route::get('/admin/editalu/{id}', [App\Http\Controllers\UserController::class, 'edit']);
 Route::get('/admin/editprof/{id}', [App\Http\Controllers\ProfController::class, 'edit']);
 Route::get('/admin/linkprof', [App\Http\Controllers\AdminController::class, 'linkprof']);
@@ -54,4 +61,4 @@ Route::put('/home/update/password/{id}', [App\Http\Controllers\UserController::c
 Route::get('/cursos',[App\Http\Controllers\CursoController::class, 'index']);
 Route::get('/cursos/{id}',[App\Http\Controllers\CursoController::class, 'show']);
 Route::get('/cursos/join/{id}',[App\Http\Controllers\CursoController::class, 'join'])->middleware('auth');
-Route::delete('/cursos/leave/{id}',[App\Http\Controllers\CursoController::class, 'leave'])->middleware('auth');
+Route::delete('/cursos/leave/{cursoid}/{aluid}',[App\Http\Controllers\CursoController::class, 'leave'])->middleware('auth');

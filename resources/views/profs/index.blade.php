@@ -9,6 +9,9 @@
         </div>
 @endif
 
+@if(count($profcursos) == 0)
+    <p class="mt-5 fw-bold fs-4 mb-5 ms-5">Você ainda não foi atribuído em nenhum curso</p>
+@endif
 
 @foreach ($profcursos as $profcurso)
 <p class="title mt-5 ms-5">{{ $profcurso->name }}</p>
