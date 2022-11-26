@@ -27,6 +27,7 @@ class User extends Authenticatable
         'username',
         'perm',
         'imagem',
+        'login',
     ];
 
     /**

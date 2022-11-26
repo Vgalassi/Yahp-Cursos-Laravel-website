@@ -115,6 +115,13 @@ public function create_curso( Request $request){
         return redirect('/');
     }
 
+    if($request->maxalu < $request->minalu){
+        return back()->with('erro','ERRO: mínimo de alunos maior do que máximo de alunos');}
+
+    if(is_numeric($request->minalu) != 1 || is_numeric($request->maxalu) != 1 ){
+        return back()->with('erro','ERRO: digite um número válido para o número de alunos');
+    }
+
     $curso = new curso;
 
     $curso->name = $request->namecurso;
@@ -124,8 +131,11 @@ public function create_curso( Request $request){
     $curso->minalu = $request->minalu;
     $curso->imagem = $request->cursoimagem;
 
-    if($curso->minalu == 0){
+    if($curso->minalu != 0){
        $curso->status = 0;
+    }
+    elseif($curso->maxalu == 0){
+        $curso->status == 2;
     }
     else{
     $curso->status = 1;}
@@ -166,10 +176,11 @@ public function show_curso($id){
         $media = NULL;
     }
     $users= User::where('perm', '=', 0)->get();
+    $professores = User::where('perm', '=', 1)->get();
     $professor = User::find($curso->user_id);
 
     return view('admin.show',['curso' => $curso,'users' =>$users,'professor' => $professor,'media' => $media,
-    'notas'=> $notas,'aprovado' => $aprovado,'reprovado' => $reprovado,'aprovadop' => $aprovadop,'reprovadop' => $reprovadop]);
+    'notas'=> $notas,'aprovado' => $aprovado,'reprovado' => $reprovado,'aprovadop' => $aprovadop,'reprovadop' => $reprovadop,'professores' => $professores]);
     
 }
 public function delete_user($id){
@@ -297,6 +308,10 @@ public function update_curso($id,Request $request){
     if($request->maxalu < $request->minalu){
         return back()->with('erro','ERRO: mínimo de alunos maior do que máximo de alunos');}
 
+    if(is_numeric($request->minalu) != 1 || is_numeric($request->maxaul) != 1 ){
+        return back()->with('erro','ERRO: digite um número válido para o número de alunos');
+    }
+
     $alunos = User::where('perm', '=', 0)->get();
     $curso = Curso::findOrfail($id);
     $count = 0;
@@ -371,6 +386,32 @@ public function update_curso($id,Request $request){
     $curso->save();
 
         return back()->with("status", "Fechamento forçado cancelado com sucesso!");
+    }
+
+    public function user_password($id){
+        $admin = Auth::user();
+        if($admin->perm != 2){
+            return redirect('/');
+        }
+        $user = User::findOrfail($id);
+        return view('admin.password',['user' => $user]);
+
+    }
+
+    public function upuser_password($id,Request $request){
+        $admin = Auth::user();
+        if($admin->perm != 2){
+            return redirect('/');
+        }
+        $request->validate([
+            'password' => 'required|confirmed',
+        ]);
+        User::findOrfail($id)->update([
+            'password' => Hash::make($request->password)
+        ]);
+        $user = User::findOrfail($id);
+        return redirect('/admin')->with("status",'Senha de ' .$user->name . 'alterada com sucesso');
+        
     }
 
 

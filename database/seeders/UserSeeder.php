@@ -49,6 +49,76 @@ class UserSeeder extends Seeder
             'endereco' => '0',
             'filme' => 'Taxi Driver',
         ]);
+
+        DB::table('users')->insert([
+            'name' => 'Leonardo Nijimura',
+            'username' => 'Leonardo',
+            'email' => 'leonardo@gmail.com',
+            'password' => Hash::make('12345678'),
+            'perm' => 0,
+            'CPF' => '0',
+            'endereco' => '0',
+            'filme' => 'American Psycho',
+        ]);
+
+        DB::table('users')->insert([
+            'name' => 'Pedro Hirose',
+            'username' => 'Perdro',
+            'email' => 'Pedro@gmail.com',
+            'password' => Hash::make('12345678'),
+            'perm' => 0,
+            'CPF' => '0',
+            'endereco' => '0',
+            'filme' => 'Clube da Luta',
+        ]);
+
+        DB::table('users')->insert([
+            'name' => 'Felipe Ghirga',
+            'username' => 'Felipe',
+            'email' => 'felipe@gmail.com',
+            'password' => Hash::make('12345678'),
+            'perm' => 0,
+            'CPF' => '0',
+            'endereco' => '0',
+            'filme' => 'Até o Último Homem',
+        ]);
+
+        DB::table('users')->insert([
+            'name' => 'Amanda Costello',
+            'username' => 'Amanda',
+            'email' => 'amanda@gmail.com',
+            'password' => Hash::make('12345678'),
+            'perm' => 0,
+            'CPF' => '0',
+            'endereco' => '0',
+            'filme' => 'Blade Runner 2049',
+        ]);
+
+        DB::table('users')->insert([
+            'name' => 'Valdomiro Pannain',
+            'username' => 'Miro',
+            'email' => 'N/A',
+            'password' => Hash::make('12345678'),
+            'perm' => 1,
+            'CPF' => '0',
+            'endereco' => '0',
+            'filme' => 'N/A',
+            'imagem' => '/images/profavatar/atumalaca.jpg',
+        ]);
+
+        DB::table('users')->insert([
+            'name' => 'Ricardo Engelbrecht',
+            'username' => 'Ricardo',
+            'email' => 'N/A',
+            'password' => Hash::make('12345678'),
+            'perm' => 1,
+            'CPF' => '0',
+            'endereco' => '0',
+            'filme' => 'N/A',
+            'imagem' => '/images/profavatar/atumalaca.jpg',
+        ]);
+
+        
     }
 
 }

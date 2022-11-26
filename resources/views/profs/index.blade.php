@@ -3,11 +3,6 @@
 
 @section('content')
 
-@if (session('status'))
-        <div class="alert alert-success" role="alert">
-            {{ session('status') }}
-        </div>
-@endif
 
 @if(count($profcursos) == 0)
     <p class="mt-5 fw-bold fs-4 mb-5 ms-5">Você ainda não foi atribuído em nenhum curso</p>

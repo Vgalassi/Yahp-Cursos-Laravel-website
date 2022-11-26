@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('filme');
             $table->string('imagem')->nullable();
             $table->integer('perm');
+            $table->datetime('login')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

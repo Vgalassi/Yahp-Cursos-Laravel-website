@@ -27,7 +27,7 @@
                   
                     <h2 class="mt-5 title ">Conheça a Plataforma de cursos gratuítos mais íncrivel do Brasil</h2>
                     <p >Nós da Yaph oferecemos diversos cursos com certificado para a área de programação,
-                        tudo isso de forma gratuita! Venha ser um Yapper, clique no botão matricule-se</p>
+                        tudo isso de forma gratuita! Venha ser um Yapper, fale com a secretaria para fazer a matrícula! </p>
                 </div>
 
             </div>

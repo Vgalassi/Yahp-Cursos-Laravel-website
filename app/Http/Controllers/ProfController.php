@@ -43,16 +43,20 @@ class ProfController extends Controller
 
     public function notas($cursoid,$aluid,Request $request)
     {
+
         $admin = Auth::user();
         if($admin->perm != 1){
             return redirect('/');
+        }
+        $check = $request->$aluid;
+        if(is_numeric($check) != 1 || $check < 0 || $check >10){
+            return back()->with("erro", "ERRO: Por favor, digite um número entre 0 a 10");
         }
         $user = User::find($aluid);
         $nota = $request->$aluid;
         $curso = CursoUser::where('user_id','=',$aluid)->where('curso_id', '=',$cursoid)->update([
             'nota'=> $request->$aluid]);
         
-
 
         return back()->with("status", "Nota " .$nota. ' atribuida para ' .$user->name.'!');
 
