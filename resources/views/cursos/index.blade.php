@@ -40,8 +40,10 @@
         @else
           <p>Matrículas Abertas - Curso acontecerá! </p>
         @endif</td>
+
         <td>
         <form action="/cursos/{{ $curso->id }} ">
+
         <button type="submit" class="btn btn-sm btn-info">
             <img src="/images/info-icon.png" alt="Info" class="icons rounded mx-auto d-block">
         </button> 
