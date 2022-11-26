@@ -2,11 +2,6 @@
 
 @section('content')
 
-@if (session('status'))
-<div class="alert alert-success" role="alert">
-    {{ session('status') }}
-</div>
-@endif
 
 <li class="nav-item dropdown d-flex justify-content-center my-2">
     <button id="navbarDropdown" class="nav-link dropdown-toggle "  role="button" data-bs-toggle="dropdown" aria-haspopup="true" >

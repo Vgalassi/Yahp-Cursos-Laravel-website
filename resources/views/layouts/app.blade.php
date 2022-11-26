@@ -57,7 +57,7 @@
                         @else
 
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown " class="nav-link dropdown-toggle text-light navbartext" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown " class="nav-link dropdown-toggle text-light navbartext"  role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->username }}
                                     @if (Auth::user()->imagem)
                                         <img class="ms-2 profilepick" src="{{ Auth::user()->imagem }}" alt="profile picture">
@@ -81,6 +81,7 @@
                                     @endif
                                     @if(Auth::user()->perm == 2)
                                         <a href="/admin" class="dropdown-item ">Admin</a>
+                                        <a href="/admin/editpassword/{{ Auth::user()->id}}" class="dropdown-item ">Mudar senha</a>
                                     @endif
                                     
 
@@ -104,11 +105,23 @@
                 </div>
             </div>
         </nav>
+        @if (session('status'))
+        <div class="alert alert-success" role="alert">
+            {{ session('status') }}
+        </div>
+        @endif
+        @if (session('erro'))
+        <div class="alert alert-danger" role="alert">
+            {{ session('erro') }}
+        </div>
+        @endif
 
         <main class="py-4">
             @yield('content')
         </main>
     </div>
+
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 </body>

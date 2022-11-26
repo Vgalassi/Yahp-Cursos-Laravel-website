@@ -1,16 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-@if (session('status'))
-<div class="alert alert-success" role="alert">
-    {{ session('status') }}
-</div>
-@endif
-@if (session('erro'))
-<div class="alert alert-danger" role="alert">
-    {{ session('erro') }}
-</div>
-@endif
+
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -66,6 +57,26 @@
     </form>
     @endif
 </div>
+<li class="nav-item dropdown d-flex justify-content-center my-2">
+    <button id="navbarDropdown" class="nav-link dropdown-toggle "  role="button" data-bs-toggle="dropdown" aria-haspopup="true" >
+        <span id="proftexto"></span>
+    </button>
+
+    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+        @foreach ($professores as $prof)
+        <button class="dropdown-item"  onclick="professores( '{{ $prof->id }}', '{{ $prof->name }}' )">
+           {{ $prof->name}}
+        </button>
+        @endforeach
+    </div>
+</li>
+<div class="d-flex justify-content-center">
+    <form action="/admin/linkprof/attach">
+     <input id="profid" style="display:none;" type="text" class="form-control @error('profid') is-invalid @enderror" name="profid" value="" required autocomplete="alunoid" >
+     <input id="cursoid" style="display:none;" type="text" class="form-control @error('cursoid') is-invalid @enderror" name="cursoid" value="{{ $curso->id }}" required autocomplete="cursoid" >
+    <button class="btn btn-primary mb-5">Atribuir professor</button>
+</form>
+</div>  
     <li class="nav-item dropdown d-flex justify-content-center my-2">
         <button id="navbarDropdown" class="nav-link dropdown-toggle"  role="button" data-bs-toggle="dropdown" aria-haspopup="true" >
             <span id="texto"></span>
@@ -152,10 +163,17 @@
     <script>
         texto = "Selecione um aluno"
         document.getElementById("texto").innerHTML = texto;
+        document.getElementById("proftexto").innerHTML = "Selecione um professor";
 
         function alunos(alunoid,alunonome){
         document.getElementById("texto").innerHTML = alunonome;
         document.getElementById("alunoid").value = alunoid;
+
+    }
+
+    function professores(profid,profnome){
+        document.getElementById("proftexto").innerHTML = profnome;
+        document.getElementById("profid").value = profid;
 
     }
     </script>

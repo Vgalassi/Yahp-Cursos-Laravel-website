@@ -2,11 +2,7 @@
 
 @section('content')
 
-@if (session('status'))
-<div class="alert alert-success" role="alert">
-    {{ session('status') }}
-</div>
-@endif
+
 
 
 <div style="text-align: center;" class="container">
@@ -99,11 +95,12 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+              <img class="displayimage" src="{{ $user->imagem }}" alt="professor image">
               <p>Nome:{{ $user->name }}</p>
               <p>Nome de usuário:{{ $user->username }}</p>
               <p>CPF:{{ $user->CPF }}</p>
               <p>Endereço:{{ $user->endereco }}</p>
-              <p>Último login:</p>
+              <p>Último login: {{ $user->login }}</p>
               <p>Cursos lecionados: </p>
                 @foreach ($cursos as $curso)
                 @if($curso->user_id == $user->id)
@@ -130,14 +127,19 @@
             
             <form action="/admin/editprof/{{ $user->id }}">
                 <button type="submit" class="btn btn-sm btn-success">
-                    <img src="/images/edit-icon.png" alt="Editar" class="icons rounded mx-auto d-block">
+                    <img src="/images/edit-icon.png" alt="Editar" class="icons rounded mx-auto d-block my-1">
                 </button>
+                </form>
+                <form action="/admin/changeuser/{{ $user->id }}">
+                  <button type = "submit" class="btn btn-warning" >
+                    <img src="/images/lockicon.png" alt="Editar senha" class="icons rounded mx-auto d-block mb-1">
+                  </button>
                 </form>
             <form action="/admin/deleteuser/{{ $user->id }}" method="POST">
                 @csrf
                 @method('DELETE')
             <button type="submit" class="btn btn-sm btn-danger">
-                <img src="/images/bin-icon.png" alt="Remover" class="icons rounded mx-auto d-block">
+                <img src="/images/bin-icon.png" alt="Remover" class="icons rounded mx-auto d-block my-1">
             </button>
             </form>
             </div>
@@ -172,7 +174,7 @@
               <p>CPF:{{ $user->CPF }}</p>
               <p>Filme favorito:{{ $user->filme }}</p>
               <p>Endereço:{{ $user->username }}</p>
-              <p>Último login:</p>
+              <p>Último login: {{ $user->login }}</p>
               <p>Cursos matriculados: </p>
                 @foreach ($user->cursos as $user->curso)
                     <p> {{$user->curso->name }}</p>
@@ -196,14 +198,19 @@
             </button>
             <form action="/admin/editalu/{{ $user->id }}">
             <button type="submit" class="btn btn-sm btn-success">
-                <img src="/images/edit-icon.png" alt="Editar" class="icons rounded mx-auto d-block">
+                <img src="/images/edit-icon.png" alt="Editar" class="icons rounded mx-auto d-block my-1">
             </button>
             </form>
+              <form action="/admin/changeuser/{{ $user->id }}">
+                <button type = "submit" class="btn btn-warning" >
+                  <img src="/images/lockicon.png" alt="Editar senha" class="icons rounded mx-auto d-block mb-1">
+                </button>
+              </form>
             <form action="/admin/deleteuser/{{ $user->id }}" method="POST">
                 @csrf
                 @method('DELETE')
             <button type="submit" class="btn btn-sm btn-danger">
-                <img src="/images/bin-icon.png" alt="Remover" class="icons rounded mx-auto d-block ">
+                <img src="/images/bin-icon.png" alt="Remover" class="icons rounded mx-auto d-block my-1">
             </button>
             </form>
         </td>

@@ -100,7 +100,7 @@ class UserController extends Controller
     public function editpassword($id)
     {
         $admin = Auth::user();
-        if($admin->id != $id && $admin->perm != 2){
+        if($admin->id != $id){
             return redirect('/');
         }
         $user = user::findOrFail($id);
@@ -108,10 +108,10 @@ class UserController extends Controller
         return view('users.editpassword',['user' => $user]) ;
     }
 
-    public function updatepassword(Request $request)
+    public function updatepassword(Request $request,$id)
     {
         $admin = Auth::user();
-        if($admin->id != $id && $admin->perm != 2){
+        if($admin->id != $id){
             return redirect('/');
         }
         $request->validate([
@@ -126,6 +126,18 @@ class UserController extends Controller
             'password' => Hash::make($request->password)
         ]);
 
-        return redirect('/professor')->with("status",'Senha alterada com sucesso');
+        if($admin->perm == 2){
+            return redirect('/admin')->with("status",'Senha alterada com sucesso');
+        }
+        elseif($admin->perm == 1){
+            return redirect('/professor')->with("status",'Senha alterada com sucesso');
+        }
+        else{
+            return redirect('/home')->with("status",'Senha alterada com sucesso');
+        }
+
+
+
+        
     }
 }

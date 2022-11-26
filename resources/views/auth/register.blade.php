@@ -1,11 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-@if (session('status'))
-<div class="alert alert-success" role="alert">
-    {{ session('status') }}
-</div>
-@endif
+
 
 <li class="nav-item dropdown d-flex justify-content-center my-2">
     <button id="navbarDropdown" class="nav-link dropdown-toggle "  role="button" data-bs-toggle="dropdown" aria-haspopup="true" >
@@ -210,7 +206,7 @@
                         <div class="row mb-3">
                             <label for="profimagem" class="col-md-4 col-form-label text-md-end"></label>
                             <div class="col-md-6">
-                                <input style="display:none;" id="profimagem" type="text" class="form-control @error('profimagem') is-invalid @enderror" name="profimagem" value="" required autocomplete="profimagem" autofocus>
+                                <input style="display:none;" id="profimagem" type="text" class="form-control @error('profimagem') is-invalid @enderror" name="profimagem" value="" required autocomplete="profimagem" >
 
                                 @error('profimagem')
                                     <span class="invalid-feedback" role="alert">
@@ -219,7 +215,9 @@
                                 @enderror
                             </div>
                         </div>
-
+                        <div class="d-flex justify-content-center ">
+                        <p style="display:none;" class ="text-danger" id="erroprofessor">Por favor,escolha uma imagem</p>
+                        </div>
                         <div class="row mb-3">
                             <label for="profname" class="col-md-4 col-form-label text-md-end">Nome Completo</label>
 
@@ -320,7 +318,7 @@
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary" onclick="submit2()">
+                                <button type="submit" class="btn btn-primary" onclick="submit2(),verifica_imagemprof()">
                                     {{ __('Criar') }}
                                 </button>
                             </div>
@@ -371,7 +369,7 @@
                             <div class="row mb-3">
                                 <label for="cursoimagem" class="col-md-4 col-form-label text-md-end"></label>
                                 <div class="col-md-6">
-                                    <input style="display:none;" id="cursoimagem" type="text" class="form-control @error('cursoimagem') is-invalid @enderror" name="cursoimagem" value="" required autocomplete="cursoimagem" autofocus>
+                                    <input style="display:none;" id="cursoimagem" type="text" class="form-control @error('cursoimagem') is-invalid @enderror" name="cursoimagem" value="" required autocomplete="cursoimagem" >
     
                                     @error('cursoimagem')
                                         <span class="invalid-feedback" role="alert">
@@ -380,7 +378,9 @@
                                     @enderror
                                 </div>
                             </div>
-    
+                            <div class="d-flex justify-content-center">
+                            <p style="display:none;" class="text-danger" id="errocurso">Por favor,escolha uma imagem</p>
+                            </div>
                             <div class="row mb-3">
                                 <label for="namecurso" class="col-md-4 col-form-label text-md-end">Nome do Curso:</label>
     
@@ -429,7 +429,7 @@
                             <div class="row mb-3">
                                 <label for="maxalu" class="col-md-4 col-form-label text-md-end">Màximo de Alunos:</label>
                                 <div class="col-md-6">
-                                    <input id="maxalu" type="text" class="form-control @error('maxalu') is-invalid @enderror" name="maxalu" value="{{ old('maxalu') }}" required autocomplete="maxalu" autofocus>
+                                    <input id="maxalu" type="number" class="form-control @error('maxalu') is-invalid @enderror" name="maxalu" value="{{ old('maxalu') }}" required autocomplete="maxalu" autofocus>
                                     @error('maxalu')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -439,7 +439,7 @@
                             </div>
                             <div class="row mb-0">
                                 <div class="col-md-6 offset-md-4">
-                                    <button type="submit" class="btn btn-primary">
+                                    <button type="submit" class="btn btn-primary" onclick="verifica_imagemcurso()">
                                         {{ __('Criar') }}
                                     </button>
                                 </div>
@@ -698,6 +698,18 @@
             plimpa_formulário_cep();
         }
     };
+
+    function verifica_imagemcurso(){
+        if(document.getElementById("cursoimagem").value.length == 0){
+        document.getElementById("errocurso").style.display = "block";
+        }
+    }
+
+    function verifica_imagemprof(){
+        if(document.getElementById("profimagem").value.length == 0){
+        document.getElementById("erroprofessor").style.display = "block";
+        }
+    }
 
 
     </script>

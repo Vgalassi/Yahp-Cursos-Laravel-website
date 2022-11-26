@@ -40,6 +40,11 @@ Route::get('/admin/create', [App\Http\Controllers\AdminController::class, 'creat
 Route::post('/admin/create/createalu', [App\Http\Controllers\AdminController::class, 'create_alu']);
 Route::post('/admin/create/createprof', [App\Http\Controllers\AdminController::class, 'create_prof']);
 Route::post('/admin/create/createcurso', [App\Http\Controllers\AdminController::class, 'create_curso']);
+Route::get('/admin/editpassword/{id}', [App\Http\Controllers\UserController::class, 'editpassword']);
+Route::put('/admin/updatepassword/{id}', [App\Http\Controllers\UserController::class, 'updatepassword']);
+Route::get('/admin/changeuser/{id}', [App\Http\Controllers\AdminController::class, 'user_password']);
+Route::put('/admin/updateuserpassword/{id}', [App\Http\Controllers\AdminController::class, 'upuser_password']);
+
 
 Route::get('/professor', [App\Http\Controllers\ProfController::class, 'index']);
 Route::post('/professor/notas/{cursoid}/{aluid}', [App\Http\Controllers\ProfController::class, 'notas']);

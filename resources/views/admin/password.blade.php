@@ -2,27 +2,13 @@
 
 @section('content')
 
-<form method="POST" action="/home/update/password/{{ $user->id}}">
+<form method="POST" action="/admin/updateuserpassword/{{ $user->id}}">
     @csrf
     @method('PUT')
 
 <div class="card-body">
 
-<div class="row mb-3">
-    <label for="antigopassword" class="col-md-4 col-form-label text-md-end">Confirmar Senha</label>
-
-    <div class="col-md-6">
-        <input id="antigopassword" type="password"   class="form-control @error('antigopassword') is-invalid @enderror" name="antigopassword">
-
-        @error('antigopassword')
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-            </span>
-        @enderror
-    </div>
-</div>
-
-
+<p class="fs-3 ms-5">Senha de {{ $user->name }}</p>
 <div class="row mb-3">
     <label for="password" class="col-md-4 col-form-label text-md-end">Nova Senha</label>
 
