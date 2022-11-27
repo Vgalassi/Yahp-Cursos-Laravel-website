@@ -14,7 +14,7 @@
 <p>CPF: {{ $user->CPF }}</p>
 <p>CEP: {{ $user->endereco }}</p>
 
-<p >Rua: <span id="rua"></span></p>
+<p>Rua: <span id="rua"></span></p>
 <p>Bairro: <span id="bairro"></span></p>
 <p>Cidade: <span id="cidade"></span></p>
 @if ($user->perm == 0)

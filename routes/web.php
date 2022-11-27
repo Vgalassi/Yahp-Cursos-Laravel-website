@@ -44,6 +44,7 @@ Route::get('/admin/editpassword/{id}', [App\Http\Controllers\UserController::cla
 Route::put('/admin/updatepassword/{id}', [App\Http\Controllers\UserController::class, 'updatepassword']);
 Route::get('/admin/changeuser/{id}', [App\Http\Controllers\AdminController::class, 'user_password']);
 Route::put('/admin/updateuserpassword/{id}', [App\Http\Controllers\AdminController::class, 'upuser_password']);
+Route::get('/admin/show/beprofessor/{id}', [App\Http\Controllers\AdminController::class, 'beprofessor']);
 
 
 Route::get('/professor', [App\Http\Controllers\ProfController::class, 'index']);

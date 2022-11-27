@@ -19,7 +19,7 @@ class AdminController extends Controller
 
     public function index(){
         $admin = Auth::user();
-        if($admin->perm != 2){
+        if($admin->perm != 2 && $admin->perm != 3){
             return redirect('/');
         }
         
@@ -32,7 +32,7 @@ class AdminController extends Controller
 
     public function create(){
         $admin = Auth::user();
-        if($admin->perm != 2){
+        if($admin->perm != 2 && $admin->perm != 3){
             return redirect('/');
         }
         return view('auth.register');
@@ -42,9 +42,41 @@ class AdminController extends Controller
     public function create_alu( Request $request){
 
         $admin = Auth::user();
-        if($admin->perm != 2){
+        if($admin->perm != 2 && $admin->perm != 3){
             return redirect('/');
         }
+        $cpf = $request->CPF;
+        $cpf = preg_replace("/[^0-9]/", "", $cpf);
+	    $cpf = str_pad($cpf, 11, '0', STR_PAD_LEFT);
+        if (strlen($cpf) != 11) {
+            return back()->with("erro", "CPF inválido");
+        }
+        else if ($cpf == '00000000000' || 
+		$cpf == '11111111111' || 
+		$cpf == '22222222222' || 
+		$cpf == '33333333333' || 
+		$cpf == '44444444444' || 
+		$cpf == '55555555555' || 
+		$cpf == '66666666666' || 
+		$cpf == '77777777777' || 
+		$cpf == '88888888888' || 
+		$cpf == '99999999999') {
+        return back()->with("erro", "CPF inválido");
+	 // Calcula os digitos verificadores para verificar se o
+	 // CPF é válido
+	 } else {   
+		
+		for ($t = 9; $t < 11; $t++) {
+			
+			for ($d = 0, $c = 0; $c < $t; $c++) {
+				$d += $cpf[$c] * (($t + 1) - $c);
+			}
+			$d = ((10 * $d) % 11) % 10;
+			if ($cpf[$c] != $d) {
+				return back()->with("erro", "CPF inválido");
+			}
+		}
+    }
 
 
         $request->validate([
@@ -79,8 +111,41 @@ class AdminController extends Controller
    public function create_prof( Request $request){
 
     $admin = Auth::user();
-    if($admin->perm != 2){
+    if($admin->perm != 2 && $admin->perm != 3){
         return redirect('/');
+    }
+
+    $cpf = $request->CPF;
+        $cpf = preg_replace("/[^0-9]/", "", $cpf);
+	    $cpf = str_pad($cpf, 11, '0', STR_PAD_LEFT);
+        if (strlen($cpf) != 11) {
+            return back()->with("erro", "CPF inválido");
+        }
+        else if ($cpf == '00000000000' || 
+		$cpf == '11111111111' || 
+		$cpf == '22222222222' || 
+		$cpf == '33333333333' || 
+		$cpf == '44444444444' || 
+		$cpf == '55555555555' || 
+		$cpf == '66666666666' || 
+		$cpf == '77777777777' || 
+		$cpf == '88888888888' || 
+		$cpf == '99999999999') {
+        return back()->with("erro", "CPF inválido");
+	 // Calcula os digitos verificadores para verificar se o
+	 // CPF é válido
+	 } else {   
+		
+		for ($t = 9; $t < 11; $t++) {
+			
+			for ($d = 0, $c = 0; $c < $t; $c++) {
+				$d += $cpf[$c] * (($t + 1) - $c);
+			}
+			$d = ((10 * $d) % 11) % 10;
+			if ($cpf[$c] != $d) {
+				return back()->with("erro", "CPF inválido");
+			}
+		}
     }
 
     $request->validate([
@@ -111,7 +176,7 @@ public function create_curso( Request $request){
 
     
     $admin = Auth::user();
-    if($admin->perm != 2){
+    if($admin->perm != 2 && $admin->perm != 3){
         return redirect('/');
     }
 
@@ -147,7 +212,7 @@ public function create_curso( Request $request){
 
 public function show_curso($id){
     $admin = Auth::user();
-    if($admin->perm != 2){
+    if($admin->perm != 2 && $admin->perm != 3){
         return redirect('/');
     }
 
@@ -175,7 +240,7 @@ public function show_curso($id){
     else{
         $media = NULL;
     }
-    $users= User::where('perm', '=', 0)->get();
+    $users= User::where('perm', '=', 0)->Orwhere('perm', '=', 3)->get();
     $professores = User::where('perm', '=', 1)->get();
     $professor = User::find($curso->user_id);
 
@@ -185,7 +250,7 @@ public function show_curso($id){
 }
 public function delete_user($id){
     $admin = Auth::user();
-    if($admin->perm != 2){
+    if($admin->perm != 2 && $admin->perm != 3){
         return redirect('/');
     }
     User::findOrFail($id)->delete();
@@ -196,7 +261,7 @@ public function delete_user($id){
 
 public function delete_curso($id){
     $admin = Auth::user();
-    if($admin->perm != 2){
+    if($admin->perm != 2 && $admin->perm != 3){
         return redirect('/');
     }
     Curso::findOrFail($id)->delete();
@@ -207,7 +272,7 @@ public function delete_curso($id){
 
 public function linkprof(){
     $admin = Auth::user();
-    if($admin->perm != 2){
+    if($admin->perm != 2 && $admin->perm != 3){
         return redirect('/');
     }
     $users = User::all();
@@ -218,7 +283,7 @@ public function linkprof(){
 
 public function attachprof(Request $request){
     $admin = Auth::user();
-    if($admin->perm != 2){
+    if($admin->perm != 2 && $admin->perm != 3){
         return redirect('/');
     }
     $curso = curso::findOrFail($request->cursoid);
@@ -231,7 +296,7 @@ public function attachprof(Request $request){
 
 public function dettachprof($id){
     $admin = Auth::user();
-    if($admin->perm != 2){
+    if($admin->perm != 2 && $admin->perm != 3){
         return redirect('/');
     }
     
@@ -245,7 +310,7 @@ public function dettachprof($id){
 public function join(Request $request,$id){
     $admin = Auth::user();
 
-    if($admin->perm != 2){
+    if($admin->perm != 2 && $admin->perm != 3){
         return redirect ('/cursos');
     }
     $curso = curso::findOrfail($id);
@@ -264,7 +329,7 @@ public function join(Request $request,$id){
 
     $curso = curso::findOrfail($id);
 
-    $alunos = User::where('perm', '=', 0)->get();
+    $alunos = User::where('perm', '=', 0)->Orwhere('perm', '=', 3)->get();
     $count = 0;
 
     foreach($alunos as $aluno){
@@ -292,7 +357,7 @@ public function join(Request $request,$id){
 
 public function edit_curso($id){
     $admin = Auth::user();
-    if($admin->perm != 2){
+    if($admin->perm != 2 && $admin->perm != 3){
         return redirect ('/cursos');
     }
     $curso = Curso::findOrFail($id);
@@ -302,7 +367,7 @@ public function edit_curso($id){
 
 public function update_curso($id,Request $request){
     $admin = Auth::user();
-    if($admin->perm != 2){
+    if($admin->perm != 2 && $admin->perm != 3){
         return redirect ('/cursos');
     }
     if($request->maxalu < $request->minalu){
@@ -312,7 +377,7 @@ public function update_curso($id,Request $request){
         return back()->with('erro','ERRO: digite um número válido para o número de alunos');
     }
 
-    $alunos = User::where('perm', '=', 0)->get();
+    $alunos = User::where('perm', '=', 0)->Orwhere('perm', '=', 3)->get();
     $curso = Curso::findOrfail($id);
     $count = 0;
     foreach($alunos as $aluno){
@@ -344,7 +409,7 @@ public function update_curso($id,Request $request){
 }
     public function close($id){
         $admin = Auth::user();
-        if($admin->perm != 2){
+        if($admin->perm != 2 && $admin->perm != 3){
             return redirect ('/cursos');
         }
 
@@ -390,7 +455,7 @@ public function update_curso($id,Request $request){
 
     public function user_password($id){
         $admin = Auth::user();
-        if($admin->perm != 2){
+        if($admin->perm != 2 && $admin->perm != 3){
             return redirect('/');
         }
         $user = User::findOrfail($id);
@@ -400,11 +465,11 @@ public function update_curso($id,Request $request){
 
     public function upuser_password($id,Request $request){
         $admin = Auth::user();
-        if($admin->perm != 2){
+        if($admin->perm != 2 && $admin->perm != 3){
             return redirect('/');
         }
         $request->validate([
-            'password' => 'required|confirmed',
+            'password' => 'required|confirmed|min:8',
         ]);
         User::findOrfail($id)->update([
             'password' => Hash::make($request->password)
@@ -412,6 +477,22 @@ public function update_curso($id,Request $request){
         $user = User::findOrfail($id);
         return redirect('/admin')->with("status",'Senha de ' .$user->name . 'alterada com sucesso');
         
+    }
+
+    public function beprofessor($id){
+        $admin = Auth::user();
+        if($admin->perm != 3){
+            return redirect('/');
+        }
+
+        $curso = Curso::findOrfail($id);
+        $curso->user_id = $admin->id;
+        $curso->save();
+
+        return back()->with("status",'Se tornou professor de ' . $curso->name . 'com sucesso');
+
+
+
     }
 
 

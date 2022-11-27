@@ -71,7 +71,7 @@
     
     <p>Minhas Relações:</p>
     @foreach ($users as $user)
-        @if($user->perm == 1)
+        @if($user->perm == 1 || $user->perm == 3)
             @foreach ($cursos as $curso)
                 @if($curso->user_id == $user->id)
                     <p>{{ $curso->name }} -> {{ $user->name }}

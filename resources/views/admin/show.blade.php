@@ -111,6 +111,16 @@
             <button class="btn btn-primary mb-5">Matricular aluno</button>
         </form>
     </div>
+    
+    @if(Auth::user()->perm == 3)
+        @if($professor == NULL)
+            <form action="/admin/show/beprofessor/{{ $curso->id }}">
+                <button type="submit" class="btn btn-primary">Se tornar professor</button>
+            </form>
+        @else
+            <p>Você já é professor desse curso</p>
+        @endif
+    @endif
 
     @if ($count != 0)
     <div class="container"><p class="mt-5 fw-bold fs-3"> Alunos({{$count }}):</p> </div>
