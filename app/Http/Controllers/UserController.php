@@ -24,7 +24,7 @@ class UserController extends Controller
     public function index()
     {
         $admin = Auth::user();
-        if($admin->perm != 0){
+        if($admin->perm != 0 && $admin->perm != 3){
             return redirect('/');
         }
         $user = Auth::user();
@@ -37,7 +37,7 @@ class UserController extends Controller
     public function show($id)
     {
         $admin = Auth::user();
-        if($admin->perm != 0 && $admin->perm != 1){
+        if($admin->perm != 0 && $admin->perm != 1 && $admin->perm != 3){
             return redirect('/');
         }
         user::findOrFail($id);
@@ -48,7 +48,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $admin = Auth::user();
-        if($admin->id != $id && $admin->perm != 2){
+        if($admin->id != $id && $admin->perm != 2 && $admin->perm != 3){
             return redirect('/');
         }
         $user = user::findOrFail($id);
@@ -60,8 +60,41 @@ class UserController extends Controller
     public function update($id,Request $request)
     {
         $admin = Auth::user();
-        if($admin->id != $id && $admin->perm != 2){
+        if($admin->id != $id && $admin->perm != 2 && $admin->perm != 3){
             return redirect('/');
+        }
+
+        $cpf = $request->CPF;
+        $cpf = preg_replace("/[^0-9]/", "", $cpf);
+	    $cpf = str_pad($cpf, 11, '0', STR_PAD_LEFT);
+        if (strlen($cpf) != 11) {
+            return back()->with("erro", "CPF inválido");
+        }
+        else if ($cpf == '00000000000' || 
+		$cpf == '11111111111' || 
+		$cpf == '22222222222' || 
+		$cpf == '33333333333' || 
+		$cpf == '44444444444' || 
+		$cpf == '55555555555' || 
+		$cpf == '66666666666' || 
+		$cpf == '77777777777' || 
+		$cpf == '88888888888' || 
+		$cpf == '99999999999') {
+        return back()->with("erro", "CPF inválido");
+	 // Calcula os digitos verificadores para verificar se o
+	 // CPF é válido
+	    } else {   
+		
+		for ($t = 9; $t < 11; $t++) {
+			
+			for ($d = 0, $c = 0; $c < $t; $c++) {
+				$d += $cpf[$c] * (($t + 1) - $c);
+			}
+			$d = ((10 * $d) % 11) % 10;
+			if ($cpf[$c] != $d) {
+				return back()->with("erro", "CPF inválido");
+			}
+		}
         }
 
         $user = user::findOrFail($request->id);
@@ -100,7 +133,7 @@ class UserController extends Controller
     public function editpassword($id)
     {
         $admin = Auth::user();
-        if($admin->id != $id){
+        if($admin->id != $id && $admin->perm != 3){
             return redirect('/');
         }
         $user = user::findOrFail($id);

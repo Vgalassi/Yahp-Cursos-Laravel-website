@@ -6,13 +6,13 @@
 
 
 <div style="text-align: center;" class="container">
-  <h1>Página do admin</h1>
+  <h1>Página da Secretaria</h1>
   <div class="btn-group mt-3">
 <form action="/admin/create">
     <button type="submit" class="btn btn-primary ms-5">Adicionar dados</button>
 </form>
 <form action="/admin/linkprof">
-    <button type="submit" class="btn btn-primary ms-5">Relacionar professor-matéria</button>
+    <button type="submit" class="btn btn-primary ms-5">Relacão professor-matéria</button>
 </form>
 </div>
 </div>
@@ -173,7 +173,11 @@
               <p>Nome de usuário:{{ $user->username }}</p>
               <p>CPF:{{ $user->CPF }}</p>
               <p>Filme favorito:{{ $user->filme }}</p>
-              <p>Endereço:{{ $user->username }}</p>
+              <p>Endereço:{{ $user->endereco }}</p>
+              <p>Rua:  <span id ="{{ $user->id }}r"></span></p>
+              <p>Bairro: <span id="{{ $user->id}}b" ></span></p>
+              <p>Cidade: <span id="{{ $user->id }}c" ></span></p>
+
               <p>Último login: {{ $user->login }}</p>
               <p>Cursos matriculados: </p>
                 @foreach ($user->cursos as $user->curso)
@@ -193,7 +197,7 @@
         <td>{{ $user->name }}</td>
         <td>
           <div class="d-flex">
-            <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#{{ $user->username }}">
+            <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#{{ $user->username }} " onclick="pesquisacep('{{ $user->endereco }}', '{{ $user->id }}')">
                 <img src="/images/info-icon.png" alt="Info" class="icons rounded mx-auto d-block">
             </button>
             <form action="/admin/editalu/{{ $user->id }}">
@@ -223,8 +227,71 @@
      
 </table>
 
+<script>
+ var id;
+  function limpa_formulário_cep() {
+          //Limpa valores do formulário de cep.
+          document.getElementById(id+'r').innerHTML=("");
+          document.getElementById(id+'b').innerHTML=("");
+          document.getElementById(id+'c').innerHTML=("");
+  }
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
+  function meu_callback(conteudo) {
+      if (!("erro" in conteudo)) {
+          //Atualiza os campos com os valores.
+          document.getElementById(id+'r').innerHTML=(conteudo.logradouro);
+          document.getElementById(id+'b').innerHTML=(conteudo.bairro);
+          document.getElementById(id+'c').innerHTML=(conteudo.localidade);
+      } //end if.
+      else {
+          //CEP não Encontrado.
+          limpa_formulário_cep();
+          alert("CEP não encontrado.");
+      }
+  }
+      
+  function pesquisacep(valor,idpassado) {
+      id = idpassado;
+
+      //Nova variável "cep" somente com dígitos.
+      var cep = valor.replace(/\D/g, '');
+
+      //Verifica se campo cep possui valor informado.
+      if (cep != "") {
+
+          //Expressão regular para validar o CEP.
+          var validacep = /^[0-9]{8}$/;
+
+          //Valida o formato do CEP.
+          if(validacep.test(cep)) {
+
+              //Preenche os campos com "..." enquanto consulta webservice.
+              document.getElementById(id+'r').innerHTML="...";
+              document.getElementById(id+'b').innerHTML="...";
+              document.getElementById(id+'c').innerHTML="...";
+
+              //Cria um elemento javascript.
+              var script = document.createElement('script');
+
+              //Sincroniza com o callback.
+              script.src = 'https://viacep.com.br/ws/'+ cep + '/json/?callback=meu_callback';
+
+              //Insere script no documento e carrega o conteúdo.
+              document.body.appendChild(script);
+
+          } //end if.
+          else {
+              //cep é inválido.
+              limpa_formulário_cep();
+              alert("Formato de CEP inválido.");
+          }
+      } //end if.
+      else {
+          //cep sem valor, limpa formulário.
+          limpa_formulário_cep();
+      }
+  };
+  </script>
     
      
 @endsection

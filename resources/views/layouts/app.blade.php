@@ -72,6 +72,7 @@
                                         </a>
                                     @endif
                                     @if(Auth::user()->perm == 1)
+                                    
                                     <a class="dropdown-item" href="/professor">
                                         Cursos lecionados
                                     </a>
@@ -82,6 +83,14 @@
                                     @if(Auth::user()->perm == 2)
                                         <a href="/admin" class="dropdown-item ">Admin</a>
                                         <a href="/admin/editpassword/{{ Auth::user()->id}}" class="dropdown-item ">Mudar senha</a>
+                                    @endif
+                                    @if(Auth::user()->perm == 3)
+                                    <a href="/home" class="dropdown-item ">Área do aluno</a>
+                                    <a class="dropdown-item" href="/professor">
+                                        Área do professor
+                                    </a>
+                                    <a href="/admin" class="dropdown-item ">Área da secretaria</a>
+                                    <a href="/admin/editpassword/{{ Auth::user()->id}}" class="dropdown-item ">Mudar senha</a>
                                     @endif
                                     
 
