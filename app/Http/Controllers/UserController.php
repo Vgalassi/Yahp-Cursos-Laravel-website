@@ -149,10 +149,10 @@ class UserController extends Controller
         }
         $request->validate([
             'antigopassword' => 'required',
-            'password' => 'required|confirmed',
+            'password' => 'required|confirmed|min:8',
         ]);
         if(!hash::check($request->antigopassword,auth()->user()->password)){
-            return back()->with("error", "ERRO: Senha incorreta");
+            return back()->with("erro", "ERRO: Senha incorreta");
         }
 
         User::whereId(auth()->user()->id)->update([

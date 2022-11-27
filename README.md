@@ -49,8 +49,20 @@ Colocar Dados Prontos na Database
 php artisan db:seed
 ```
 
+## Usuário admin:
+Usuário de acesso padrão: Admin
 
-Acesse o projeto
+Senha padrão: adminadmin
+
+## Usuário secretaria:
+
+Usuário de acesso padrão: Secretaria
+
+Senha padrão: 12345678
+
+
+
+## Acesse o projeto
 [http://localhost:8080](http://localhost:8080)
 
 Acesse o phpmyadmin

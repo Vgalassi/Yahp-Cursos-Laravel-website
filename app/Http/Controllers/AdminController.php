@@ -469,7 +469,7 @@ public function update_curso($id,Request $request){
             return redirect('/');
         }
         $request->validate([
-            'password' => 'required|confirmed',
+            'password' => 'required|confirmed|min:8',
         ]);
         User::findOrfail($id)->update([
             'password' => Hash::make($request->password)
