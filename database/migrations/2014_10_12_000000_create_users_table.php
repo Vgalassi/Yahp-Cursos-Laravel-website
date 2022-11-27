@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('CPF');
             $table->string('endereco');
+            $table->string('num');
             $table->string('filme');
             $table->string('imagem')->nullable();
             $table->integer('perm');
