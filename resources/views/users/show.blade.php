@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+<div class="d-flex justify-content-center">
 <div class="card" style="width: 25rem;">
 @if($user->perm == 1)
 <img style="width:150px; height:150px;"class="displayimage" src="{{ $user->imagem }}" alt="profile picture">
@@ -27,6 +28,7 @@
 @endif 
 
 </div>  
+</div>
 <style>.card {
   margin-top: 2em;
   padding: 1.5em 0.5em 0.5em;

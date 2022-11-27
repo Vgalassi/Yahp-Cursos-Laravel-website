@@ -77,7 +77,7 @@
                             <label for="endereco" class="col-md-4 col-form-label text-md-end">Cep</label>
 
                             <div class="col-md-6">
-                                <input name="endereco" type="number" id="endereco" value = "{{ $user->endereco }}" size="10" maxlength="9" class="form-control @error('endereco') is-invalid @enderror"
+                                <input name="endereco" type="text" id="endereco" value = "{{ $user->endereco }}" size="10" maxlength="9" class="form-control @error('endereco') is-invalid @enderror"
                                 onblur="pesquisacep(this.value);" />
                                 @error('endereco')
                                 <span class="invalid-feedback" role="alert">
@@ -114,7 +114,7 @@
                         <div class="row mb-3">
                             <label for="num" class="col-md-4 col-form-label text-md-end">Numero</label>
                         <div class="col-md-6">
-                            <input id="num" type="text" class="form-control @error('num') is-invalid @enderror" name="num" value="" required autocomplete="num" autofocus>
+                            <input id="num" type="text" class="form-control @error('num') is-invalid @enderror" name="num" value="{{ $user->num }}" required autocomplete="num" autofocus>
 
                             @error('num')
                                 <span class="invalid-feedback" role="alert">

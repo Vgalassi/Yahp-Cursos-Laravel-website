@@ -387,8 +387,10 @@ public function update_curso($id,Request $request){
     }
     if($request->maxalu < $request->minalu){
         return back()->with('erro','ERRO: mínimo de alunos maior do que máximo de alunos');}
-
-    if(is_numeric($request->minalu) != 1 || is_numeric($request->maxaul) != 1 ){
+    if($request->minalu < 0 || $request->maxalu< 0){
+        return back()->with('erro','ERRO: digite um número válido para o número de alunos');
+    }
+    if(is_numeric($request->minalu) != 1 || is_numeric($request->maxalu) != 1 ){
         return back()->with('erro','ERRO: digite um número válido para o número de alunos');
     }
 
@@ -490,7 +492,7 @@ public function update_curso($id,Request $request){
             'password' => Hash::make($request->password)
         ]);
         $user = User::findOrfail($id);
-        return redirect('/admin')->with("status",'Senha de ' .$user->name . 'alterada com sucesso');
+        return redirect('/admin')->with("status",'Senha de ' .$user->name . ' alterada com sucesso');
         
     }
 

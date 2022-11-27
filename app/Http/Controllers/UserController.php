@@ -104,11 +104,12 @@ class UserController extends Controller
         if($user->perm == 0){
             $request->validate([
                 'name' => ['required', 'string', 'max:120'],
-                'email' => ['required', 'string', 'email', 'max:50'],
+                'email' => ['required', 'string', 'email', 'max:50','unique:users,email,'.$user->id],
                 'endereco' => ['required','string', 'max:8'],
                 'num' => ['required'],
+                'CPF' => ['required','unique:users,CPF,'.$user->id],
                 'filme' => ['required', 'string', 'max:80'],
-                'username' => ['required','string','max:30'],
+                'username' => ['required','string','max:30','unique:users,username,'.$user->id],
             ]);
         $user = user::findOrFail($request->id)->update([
             'name' => $request->name,
@@ -123,10 +124,10 @@ class UserController extends Controller
         else{
             $request->validate([
                 'name' => ['required', 'string', 'max:255'],
-                'CPF' => ['required','string'],
+                'CPF' => ['required','unique:users,CPF,'.$user->id],
                 'endereco' => ['required', 'string', 'max:8'],
                 'num' => ['required'],
-                'username' => ['required','string','max:50'],
+                'username' => ['required','string','max:50','unique:users,username,'.$user->id],
             ]);
             $user = user::findOrFail($request->id)->update([
                 'name' => $request->name,

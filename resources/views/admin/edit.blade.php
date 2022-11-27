@@ -87,7 +87,7 @@
                             <div class="row mb-3">
                                 <label for="descricomp" class="col-md-4 col-form-label text-md-end">Mínimo de Alunos:</label>
                                 <div class="col-md-6">
-                                    <input id="minalu" type="number" class="form-control @error('minalu') is-invalid @enderror" name="minalu" value="{{ $curso->minalu }}" required autocomplete="name" autofocus>
+                                    <input id="minalu" type="text" class="form-control @error('minalu') is-invalid @enderror" name="minalu" value="{{ $curso->minalu }}" required autocomplete="name" autofocus>
                                     @error('minalu')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>

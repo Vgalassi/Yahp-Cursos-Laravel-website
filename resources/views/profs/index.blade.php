@@ -7,7 +7,7 @@
 @if(count($profcursos) == 0)
     <p class="mt-5 fw-bold fs-4 mb-5 ms-5">Você ainda não foi atribuído em nenhum curso</p>
 @else
-@endif
+
 
 <li class="nav-item dropdown d-flex justify-content-center my-2">
     <p class="mx-2 fs-2">Selecione o curso:</p>
@@ -69,17 +69,18 @@
 </table>
 </div>
 @endforeach
-
+@endif
 <script>
     @if(session('ultimo'))
         document.getElementById("{{ session('ultimo') }}").style.display = "block";
-        texto = "Selecione um curso";
         ultimo = "{{ session('ultimo') }}";
-    @else
-        texto = "{{ $profcurso->name }}";
-        document.getElementById("{{ $profcurso->id }}").style.display = "block";
+    @elseif(count($profcursos) != 0)
         ultimo = "{{ $profcurso->id }}";
+        document.getElementById(ultimo).style.display = "block";
+    @else
+      ultimo = "xd";
     @endif
+        texto = "Selecione um curso";
         document.getElementById("texto").innerHTML = texto;
 
 
