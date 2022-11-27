@@ -14,7 +14,7 @@ class ProfController extends Controller
 {
     public function index(){
         $admin = Auth::user();
-        if($admin->perm != 1){
+        if($admin->perm != 1 && $admin->perm != 3){
             return redirect('/');
         }
 
@@ -22,9 +22,10 @@ class ProfController extends Controller
         $notas = Cursouser::all();
         $notaaluno = NULL;
         $cursos = Curso::all();
-        $alunos = User::where('perm', '=', 0)->get();
+        $alunos = User::where('perm', '=', 0)->Orwhere('perm', '=', 3)->get();
         $professor = Auth::user();
         $profcursos = Curso::where('user_id','=',$professor->id)->get();
+        
 
         return view('profs.index',['alunos' => $alunos, 'profcursos' => $profcursos,'notas' => $notas,'notaaluno' => $notaaluno]);
     }
@@ -32,7 +33,7 @@ class ProfController extends Controller
     public function edit($id)
     {
         $admin = Auth::user();
-        if($admin->id != $id && $admin->perm != 2){
+        if($admin->id != $id && $admin->perm != 2 && $admin->perm != 3){
             return redirect('/');
         }
         $user = user::findOrFail($id);
@@ -45,7 +46,7 @@ class ProfController extends Controller
     {
 
         $admin = Auth::user();
-        if($admin->perm != 1){
+        if($admin->perm != 1 && $admin->perm != 3){
             return redirect('/');
         }
         $check = $request->$aluid;
@@ -58,7 +59,7 @@ class ProfController extends Controller
             'nota'=> $request->$aluid]);
         
 
-        return back()->with("status", "Nota " .$nota. ' atribuida para ' .$user->name.'!');
+        return back()->with("status", "Nota " .$nota. ' atribuida para ' .$user->name.'!')->with("ultimo", $cursoid);
 
     }
 }

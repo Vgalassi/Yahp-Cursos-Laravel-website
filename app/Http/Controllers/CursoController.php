@@ -49,7 +49,7 @@ class CursoController extends Controller
     public function join($id){
         $admin = Auth::user();
 
-        if($admin->perm != 0){
+        if($admin->perm != 0 && $admin->perm != 3){
             return redirect ('/cursos');
         }
 
@@ -70,7 +70,7 @@ class CursoController extends Controller
 
         $curso = curso::findOrfail($id);
         
-        $alunos = User::where('perm', '=', 0)->get();
+        $alunos = User::where('perm', '=', 0)->Orwhere('perm', '=', 3)->get();
         $count = 0;
         foreach($alunos as $aluno){
             foreach($aluno->cursos as $cursoalu){
@@ -104,7 +104,7 @@ class CursoController extends Controller
 
         $admin = Auth::user();
 
-        if($admin->id != $aluid && $admin->perm != 2){
+        if($admin->id != $aluid && $admin->perm != 2 && $admin->perm != 3){
             return redirect ('/cursos');
         }
 
@@ -112,7 +112,7 @@ class CursoController extends Controller
         $user->cursos()->detach($cursoid);
         $curso = curso::findOrfail($cursoid);
 
-        $alunos = User::where('perm', '=', 0)->get();
+        $alunos = User::where('perm', '=', 0)->Orwhere('perm', '=', 3)->get();
         $count = 0;
         foreach($alunos as $aluno){
             foreach($aluno->cursos as $cursoalu){
@@ -135,7 +135,7 @@ class CursoController extends Controller
            $curso->save();
         
         }
-        if($admin->perm == 2){
+        if($admin->perm == 2 || $admin->perm == 3 ){
             return back()->with('status','Aluno '. $user->name . ' desmatriculado com sucesso');
         }
 

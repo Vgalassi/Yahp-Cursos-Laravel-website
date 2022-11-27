@@ -7,7 +7,7 @@
 <div class="d-flex justify-content-center">
 <div class="col-40">
   
-<div class="card" style="width: 18rem;">
+<div class="card" style="width: 80rem;">
   <img style="width:150px; height:150px;" src="{{ $curso->imagem }}" alt="cursoimage">
   <div class="card-body"><ul class="list-group list-group-flush">
     <h5 class="card-title">{{ $curso->name }}</h5>
