@@ -25,6 +25,7 @@ class UserSeeder extends Seeder
             'perm' => 3,
             'CPF' => '0',
             'endereco' => 'Yahp',
+            'num' => '0',
             'filme' => 'N/A',
         ]);
 
@@ -36,6 +37,7 @@ class UserSeeder extends Seeder
             'perm' => 2,
             'CPF' => '0',
             'endereco' => 'Yahp',
+            'num' => '0',
             'filme' => 'N/A',
         ]);
 
@@ -47,6 +49,7 @@ class UserSeeder extends Seeder
             'perm' => 1,
             'CPF' => '0',
             'endereco' => '0',
+            'num' => '0',
             'filme' => 'N/A',
             'imagem' => '/images/profavatar/atumalaca.jpg',
         ]);
@@ -59,6 +62,7 @@ class UserSeeder extends Seeder
             'perm' => 0,
             'CPF' => '0',
             'endereco' => '0',
+            'num' => '0',
             'filme' => 'Taxi Driver',
         ]);
 
@@ -70,6 +74,7 @@ class UserSeeder extends Seeder
             'perm' => 0,
             'CPF' => '0',
             'endereco' => '0',
+            'num' => '0',
             'filme' => 'American Psycho',
         ]);
 
@@ -81,6 +86,7 @@ class UserSeeder extends Seeder
             'perm' => 0,
             'CPF' => '0',
             'endereco' => '0',
+            'num' => '0',
             'filme' => 'Clube da Luta',
         ]);
 
@@ -92,6 +98,7 @@ class UserSeeder extends Seeder
             'perm' => 0,
             'CPF' => '0',
             'endereco' => '0',
+            'num' => '0',
             'filme' => 'Até o Último Homem',
         ]);
 
@@ -103,6 +110,7 @@ class UserSeeder extends Seeder
             'perm' => 0,
             'CPF' => '0',
             'endereco' => '0',
+            'num' => '0',
             'filme' => 'Blade Runner 2049',
         ]);
 
@@ -115,6 +123,7 @@ class UserSeeder extends Seeder
             'CPF' => '0',
             'endereco' => '0',
             'filme' => 'N/A',
+            'num' => '0',
             'imagem' => '/images/profavatar/atumalaca.jpg',
         ]);
 
@@ -126,6 +135,7 @@ class UserSeeder extends Seeder
             'perm' => 1,
             'CPF' => '0',
             'endereco' => '0',
+            'num' => '0',
             'filme' => 'N/A',
             'imagem' => '/images/profavatar/atumalaca.jpg',
         ]);

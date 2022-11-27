@@ -96,24 +96,44 @@ class UserController extends Controller
 			}
 		}
         }
+        if(is_numeric($request->num) != 1 || $request->num<0){
+            return back()->with("erro", "Número da residência inválido");
+        }
 
         $user = user::findOrFail($request->id);
         if($user->perm == 0){
+            $request->validate([
+                'name' => ['required', 'string', 'max:120'],
+                'email' => ['required', 'string', 'email', 'max:50'],
+                'endereco' => ['required','string', 'max:8'],
+                'num' => ['required'],
+                'filme' => ['required', 'string', 'max:80'],
+                'username' => ['required','string','max:30'],
+            ]);
         $user = user::findOrFail($request->id)->update([
             'name' => $request->name,
             'username' => $request->username,
             'email' => $request->email,
             'CPF' => $request->CPF,
             'endereco' => $request->endereco,
+            'num' => $request->num,
             'filme' => $request->filme,
         ]);
         }
         else{
+            $request->validate([
+                'name' => ['required', 'string', 'max:255'],
+                'CPF' => ['required','string'],
+                'endereco' => ['required', 'string', 'max:8'],
+                'num' => ['required'],
+                'username' => ['required','string','max:50'],
+            ]);
             $user = user::findOrFail($request->id)->update([
                 'name' => $request->name,
                 'username' => $request->username,
                 'CPF' => $request->CPF,
                 'endereco' => $request->endereco,
+                'num' => $request->num,
                 'imagem' => $request->imagem
             ]);
         }

@@ -80,14 +80,19 @@ class AdminController extends Controller
 
 
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255','unique:users'],
+            'name' => ['required', 'string', 'max:120'],
+            'email' => ['required', 'string', 'email', 'max:50','unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'CPF' => ['required','string','unique:users'],
             'cep' => ['required','string', 'max:8'],
-            'filme' => ['required', 'string', 'max:255'],
-            'username' => ['required','string','max:50','unique:users'],
+            'num' => ['required'],
+            'filme' => ['required', 'string', 'max:80'],
+            'username' => ['required','string','max:30','unique:users'],
         ]);
+
+        if(is_numeric($request->num) != 1 || $request->num<0){
+            return back()->with("erro", "Número da residência inválido");
+        }
 
         $user = new user;
 
@@ -95,8 +100,9 @@ class AdminController extends Controller
         $user->username = $request->username;
         $user->email = $request->email;
         $user->password = hash::make($request->password);
-        $user->CPF = $request->CPF;
+        $user->CPF = $request->CPF; 
         $user->endereco = $request->cep;
+        $user->num = $request->num;
         $user->filme = $request->filme;
         
 
@@ -148,13 +154,21 @@ class AdminController extends Controller
 		}
     }
 
+
     $request->validate([
         'profname' => ['required', 'string', 'max:255'],
         'password' => ['required', 'string', 'min:8','confirmed'],
         'CPF' => ['required','string','unique:users'],
         'pcep' => ['required', 'string', 'max:8'],
+        'pnum' => ['required'],
         'username' => ['required','string','max:50','unique:users'],
     ]);
+
+    if(is_numeric($request->pnum) != 1 || $request->num<0){
+        return back()->with("erro", "Número da residência inválido");
+    }
+
+
     $user = new user;
 
     $user->imagem = $request->profimagem;
@@ -163,6 +177,7 @@ class AdminController extends Controller
     $user->password = hash::make($request->password);
     $user->CPF = $request->CPF;
     $user->endereco = $request->pcep;
+    $user->num = $request->pnum;
     $user->filme = 'N/A';
     $user ->email = 'N/A';
 

@@ -100,8 +100,13 @@
                             <label for="endereco" class="col-md-4 col-form-label text-md-end">Cep</label>
 
                             <div class="col-md-6">
-                                <input name="endereco" type="number" id="endereco" value = "{{ $user->endereco }}" size="10" maxlength="9" class="form-control"
+                                <input name="endereco" type="text" id="endereco" value = "{{ $user->endereco }}" size="10" maxlength="9" class="form-control @error('endereco') is-invalid @enderror"
                                 onblur="pesquisacep(this.value);" />
+                                @error('endereco')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
 
@@ -129,6 +134,19 @@
                             </div>
                         </div>
 
+                        <div class="row mb-3">
+                            <label for="num" class="col-md-4 col-form-label text-md-end">Numero</label>
+                        <div class="col-md-6">
+                            <input id="num" type="text" class="form-control @error('num') is-invalid @enderror" name="num" value="{{ $user->num }}" required autocomplete="num" autofocus>
+
+                            @error('num')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
@@ -144,6 +162,7 @@
     </div>
 </div>
 <script>
+   
     texto = "Foto de Perfil";
     document.getElementById("texto").innerHTML = texto;
 
@@ -208,6 +227,7 @@
             //CEP não Encontrado.
             limpa_formulário_cep();
             alert("CEP não encontrado.");
+            document.getElementById('endereco').value="Cep inválido";
         }
     }
         
@@ -243,12 +263,14 @@
             else {
                 //cep é inválido.
                 limpa_formulário_cep();
+                document.getElementById('endereco').value="Cep inválido";
                 alert("Formato de CEP inválido.");
             }
         } //end if.
         else {
             //cep sem valor, limpa formulário.
             limpa_formulário_cep();
+            document.getElementById('endereco').value="Cep inválido";
         }
     };
 

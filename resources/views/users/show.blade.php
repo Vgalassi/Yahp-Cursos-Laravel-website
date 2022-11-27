@@ -17,6 +17,7 @@
 <p>Rua: <span id="rua"></span></p>
 <p>Bairro: <span id="bairro"></span></p>
 <p>Cidade: <span id="cidade"></span></p>
+<p>Número: {{ $user->num }}</p>
 @if ($user->perm == 0)
 <p>Filme: {{ $user->filme }}</p>
 <a href="/home/edit/{{ $user->id}}">Editar Dados</a>

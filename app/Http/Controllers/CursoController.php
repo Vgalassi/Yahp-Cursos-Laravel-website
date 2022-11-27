@@ -108,9 +108,11 @@ class CursoController extends Controller
             return redirect ('/cursos');
         }
 
+
         $user = User::findOrFail($aluid);
         $user->cursos()->detach($cursoid);
         $curso = curso::findOrfail($cursoid);
+
 
         $alunos = User::where('perm', '=', 0)->Orwhere('perm', '=', 3)->get();
         $count = 0;
