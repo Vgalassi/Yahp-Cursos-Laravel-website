@@ -100,6 +100,7 @@
               <p>Nome de usuário:{{ $user->username }}</p>
               <p>CPF:{{ $user->CPF }}</p>
               <p>Endereço:{{ $user->endereco }}</p>
+              <p>Número: {{ $user->num }}</p>
               <p>Último login: {{ $user->login }}</p>
               <p>Cursos lecionados: </p>
                 @foreach ($cursos as $curso)
@@ -177,7 +178,7 @@
               <p>Rua:  <span id ="{{ $user->id }}r"></span></p>
               <p>Bairro: <span id="{{ $user->id}}b" ></span></p>
               <p>Cidade: <span id="{{ $user->id }}c" ></span></p>
-
+              <p>Número: {{ $user->num }}</p>
               <p>Último login: {{ $user->login }}</p>
               <p>Cursos matriculados: </p>
                 @foreach ($user->cursos as $user->curso)

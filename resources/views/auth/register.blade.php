@@ -146,6 +146,19 @@
                         </div>
 
                         <div class="row mb-3">
+                        <label for="num" class="col-md-4 col-form-label text-md-end">Número</label>
+                        <div class="col-md-6">
+                            <input id="num" type="text" class="form-control @error('num') is-invalid @enderror" name="num" value="{{ old('num') }}" required autocomplete="num" autofocus>
+
+                            @error('num')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+
+                        <div class="row mb-3">
                             <label for="filme" class="col-md-4 col-form-label text-md-end">Filme Favorito</label>
 
                             <div class="col-md-6">
@@ -312,6 +325,19 @@
 
                             <div class="col-md-6">
                                 <input name="pcidade" type="text" id="pcidade" value="" size="10" maxlength="9" class="form-control @error('pcidade') is-invalid @enderror" required autocomplete="name" autofocus/></label><br />
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="pnum" class="col-md-4 col-form-label text-md-end">Numero</label>
+
+                            <div class="col-md-6">
+                                <input id="pnum" type="text" class="form-control @error('pnum') is-invalid @enderror" name="pnum" value="{{ old('pnum') }}" required autocomplete="pnum" autofocus>
+
+                                @error('pnum')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
                         
@@ -591,6 +617,7 @@
             //CEP não Encontrado.
             limpa_formulário_cep();
             alert("CEP não encontrado.");
+            document.getElementById('cep').value="Cep inválido";
         }
     }
         
@@ -627,11 +654,13 @@
                 //cep é inválido.
                 limpa_formulário_cep();
                 alert("Formato de CEP inválido.");
+                document.getElementById('cep').value="Cep inválido";
             }
         } //end if.
         else {
             //cep sem valor, limpa formulário.
             limpa_formulário_cep();
+            document.getElementById('cep').value="Cep inválido";
         }
     };
 
@@ -655,6 +684,7 @@
             //CEP não Encontrado.
             plimpa_formulário_cep();
             palert("CEP não encontrado.");
+            document.getElementById('pcep').value="Cep inválido";
         }
     }
         
@@ -690,12 +720,14 @@
             else {
                 //cep é inválido.
                 plimpa_formulário_cep();
-                palert("Formato de CEP inválido.");
+                alert("Formato de CEP inválido.");
+                document.getElementById('pcep').value="Cep inválido";
             }
         } //end if.
         else {
             //cep sem valor, limpa formulário.
             plimpa_formulário_cep();
+            document.getElementById('pcep').value="Cep inválido";
         }
     };
 

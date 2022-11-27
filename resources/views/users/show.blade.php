@@ -9,11 +9,14 @@
 @if ($user->perm == 0)
     <p class="card-text">Email: {{ $user->email }}</p>
 @endif 
+
     <p class="card-text">CPF:{{ $user->CPF }}</p>
     <p class="card-text">Endereço: {{ $user->endereco }}</p>
 <p class="card-text">Rua: <span id="rua"></span></p>
 <p class="card-text">Bairro: <span id="bairro"></span></p>
 <p class="card-text">Cidade: <span id="cidade"></span></p>
+<p class="card-text">Número: {{ $user->num }}</p>
+
 @if ($user->perm == 0)
 <p class="card-text">Filme: {{ $user->filme }}</p>
 <a href="/home/edit/{{ $user->id}}">Editar Dados</a>
